@@ -1,7 +1,9 @@
 package com.gamedesign.pacman;
 
 import com.almasb.fxgl.entity.Entities;
+import com.almasb.fxgl.entity.EntityView;
 import com.almasb.fxgl.entity.GameEntity;
+import com.almasb.fxgl.entity.RenderLayer;
 import com.almasb.fxgl.entity.component.CollidableComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
@@ -21,7 +23,8 @@ public class EntityFactory
                 .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
                 .type(EntityType.PLAYER)
                 .bbox(new HitBox("BODY", BoundingShape.circle(BLOCK_SIZE / 2 - 5)))
-                .viewFromNode(new Circle(BLOCK_SIZE / 2 - 5, Color.YELLOW))
+                .viewFromTexture(PACMAN_TEXTURES[0])
+                //.viewFromNode(new Circle(BLOCK_SIZE / 2 - 5, Color.YELLOW))
                 .with(new CollidableComponent(true))
                 .with(new PlayerControl())
                 .build();
@@ -35,6 +38,33 @@ public class EntityFactory
                 .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE, BLOCK_SIZE)))
                 .viewFromNode(new Rectangle(BLOCK_SIZE, BLOCK_SIZE, Color.BLUE))
                 .with(new CollidableComponent())
+                .build();
+    }
+
+    public static GameEntity newPellet(double x, double y)
+    {
+        EntityView entityView = new EntityView(new Circle(BLOCK_SIZE / 8, Color.YELLOW));
+        entityView.setRenderLayer(new RenderLayer()
+        {
+            @Override
+            public String name()
+            {
+                return "BACKGROUND2";
+            }
+
+            @Override
+            public int index()
+            {
+                return 1001;
+            }
+        });
+
+        return Entities.builder()
+                .at(x * BLOCK_SIZE + BLOCK_SIZE / 2 - BLOCK_SIZE / 8, y * BLOCK_SIZE + BLOCK_SIZE / 2 - BLOCK_SIZE / 8)
+                .type(EntityType.PELLET)
+                .bbox(new HitBox("BODY", BoundingShape.circle(BLOCK_SIZE / 8)))
+                .viewFromNode(entityView)
+                .with(new CollidableComponent(true))
                 .build();
     }
 }

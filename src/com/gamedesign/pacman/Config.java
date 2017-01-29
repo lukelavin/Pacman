@@ -13,5 +13,7 @@ public class Config
     public static final int MAP_SIZE = 21;
     public static final int UI_SIZE = 200;
 
-    public static final int PACMAN_SPEED = 5 * 60;
+    public static final String[] PACMAN_TEXTURES = {"pacman0.png", "pacman1.png", "pacman2.png", "pacman1.png"};
+
+    public static final int PACMAN_SPEED = 3 * 60;
 }

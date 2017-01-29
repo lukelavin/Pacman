@@ -1,5 +1,6 @@
 package com.gamedesign.pacman;
 
+import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.Entities;
@@ -8,12 +9,16 @@ import com.almasb.fxgl.entity.RenderLayer;
 import com.almasb.fxgl.gameplay.Level;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.parser.TextLevelParser;
+import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.settings.GameSettings;
 import com.gamedesign.pacman.control.PlayerControl;
 import com.gamedesign.pacman.type.EntityType;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import static com.gamedesign.pacman.Config.*;
 
@@ -24,6 +29,9 @@ public class PacmanApp extends GameApplication
     {
         return getGameWorld().getEntitiesByType(EntityType.PLAYER).get(0).getControlUnsafe(PlayerControl.class);
     }
+
+    private IntegerProperty score;
+
 
     @Override
     protected void initSettings(GameSettings gameSettings)
@@ -94,6 +102,7 @@ public class PacmanApp extends GameApplication
         parser.setEmptyChar(' ');
         parser.addEntityProducer('P', EntityFactory::newPlayer);
         parser.addEntityProducer('B', EntityFactory::makeBlock);
+        parser.addEntityProducer('.', EntityFactory::newPellet);
 
         Level level = parser.parse("levels/level.txt");
 
@@ -105,12 +114,22 @@ public class PacmanApp extends GameApplication
                 .buildAndAttach(getGameWorld());
 
         background.setRenderLayer(RenderLayer.BACKGROUND);
+
+        score = new SimpleIntegerProperty();
     }
 
     @Override
     protected void initPhysics()
     {
-
+        getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.PLAYER, EntityType.PELLET)
+        {
+            @Override
+            protected void onCollisionBegin(Entity player, Entity pellet)
+            {
+                score.add(10);
+                pellet.removeFromWorld();
+            }
+        });
     }
 
     @Override
