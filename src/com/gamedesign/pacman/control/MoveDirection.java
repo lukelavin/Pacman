@@ -1,4 +1,4 @@
-package com.gamedesign.pacman;
+package com.gamedesign.pacman.control;
 
 import static com.gamedesign.pacman.Config.PACMAN_SPEED;
 

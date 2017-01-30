@@ -36,8 +36,8 @@ public class PacmanApp extends GameApplication
     @Override
     protected void initSettings(GameSettings gameSettings)
     {
-        gameSettings.setWidth(MAP_SIZE * BLOCK_SIZE + UI_SIZE);
-        gameSettings.setHeight(MAP_SIZE * BLOCK_SIZE);
+        gameSettings.setWidth(MAP_SIZE_X * BLOCK_SIZE + UI_SIZE);
+        gameSettings.setHeight(MAP_SIZE_Y * BLOCK_SIZE);
         gameSettings.setTitle("Pacman");
         gameSettings.setVersion("0.1");
 
@@ -103,6 +103,7 @@ public class PacmanApp extends GameApplication
         parser.addEntityProducer('P', EntityFactory::newPlayer);
         parser.addEntityProducer('B', EntityFactory::makeBlock);
         parser.addEntityProducer('.', EntityFactory::newPellet);
+        parser.addEntityProducer('b', EntityFactory::newBlinky);
 
         Level level = parser.parse("levels/level.txt");
 

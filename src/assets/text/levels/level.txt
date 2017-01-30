@@ -5,11 +5,11 @@ B.................B
 B.BB.B.BBBBB.B.BB.B
 B....B...B...B....B
 BBBB.BBB B BBB.BBBB
-   B.B       B.B
-BBBB.B B   B B.BBBB
+BBBB.B       B.BBBB
+BBBB.B B b B B.BBBB
     .  B   B  .
 BBBB.B BBBBB B.BBBB
-   B.B       B.B
+BBBB.B       B.BBBB
 BBBB.B BBBBB B.BBBB
 B........B........B
 B.BB.BBB.B.BBB.BB.B

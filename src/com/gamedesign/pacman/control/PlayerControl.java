@@ -6,7 +6,6 @@ import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.time.LocalTimer;
-import com.gamedesign.pacman.MoveDirection;
 import com.gamedesign.pacman.type.EntityType;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
@@ -48,9 +47,9 @@ public class PlayerControl extends AbstractControl
             textureTimer.capture();
         }
 
-        // every 150 ms, if Pacman is moving, switch to the next texture
-        // 150 is arbitrary, could and probably should be derived from speed in the future
-        if(textureTimer.elapsed(Duration.millis(150))){
+        // every 50 ms, if Pacman is moving, switch to the next texture
+        // 50 is arbitrary, could and probably should be derived from speed in the future
+        if(textureTimer.elapsed(Duration.millis(50))){
             i = (i + 1) % (PACMAN_TEXTURES.length);
 
             gameEntity.getMainViewComponent().setView(new ImageView("assets/textures/" + PACMAN_TEXTURES[i]));
@@ -209,7 +208,7 @@ public class PlayerControl extends AbstractControl
     have it here. Uses simple integer math to find the origin point for the closest tile
     to Pacman.
      */
-    private Point2D nearestTile(){
+    public Point2D nearestTile(){
         //return the pixel origin of the nearest tile to Pacman
 
         return new Point2D(((int) gameEntity.getPosition().getX() - 5 + BLOCK_SIZE / 2) / 40 * BLOCK_SIZE,
