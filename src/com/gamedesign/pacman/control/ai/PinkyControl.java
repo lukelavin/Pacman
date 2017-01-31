@@ -3,6 +3,7 @@ package com.gamedesign.pacman.control.ai;
 import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
+import com.almasb.fxgl.entity.EntityView;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.time.LocalTimer;
 import com.gamedesign.pacman.PacmanApp;
@@ -24,12 +25,13 @@ import static com.gamedesign.pacman.PacmanApp.blockGridInitialized;
 /**
  * Created by lukel on 1/29/2017.
  */
-public class BlinkyControl extends GhostControl
+public class PinkyControl extends GhostControl
 {
-    private final int[] homeCoordinates = {0, MAP_SIZE_X - 3}; // Blinky's "home corner", an unreachable spot that he will try to move towards in scatter mode.
+    private final int[] homeCoordinates = {0, 0 + 3}; // Blinky's "home corner", an unreachable spot that he will try to move towards in scatter mode.
+    private int[][] aheadGrid;
     private LocalTimer textureTimer;
     private int texturei;
-
+    
     @Override
     public void onAdded(Entity entity)
     {
@@ -50,6 +52,7 @@ public class BlinkyControl extends GhostControl
         if(blockGridInitialized && !gridsInitialized){
             blockGrid = PacmanApp.blockGrid;
             playerGrid = playerControl().playerGrid;
+            aheadGrid = playerControl().aheadGrid;
             initHomeGrid();
 
             gridsInitialized = true;
@@ -57,8 +60,8 @@ public class BlinkyControl extends GhostControl
 
         if(textureTimer.elapsed(Duration.millis(75)))
         {
-            texturei = (texturei + 1) % BLINKY_TEXTURES.length;
-            ghost.getMainViewComponent().setView(new ImageView(new Image("assets/textures/" + BLINKY_TEXTURES[texturei])));
+            texturei = (texturei + 1) % PINKY_TEXTURES.length;
+            ghost.getMainViewComponent().setView(new ImageView(new Image("assets/textures/" + PINKY_TEXTURES[texturei])));
             textureTimer.capture();
         }
 
@@ -167,16 +170,16 @@ public class BlinkyControl extends GhostControl
             /*
             Check if the block above the ghost does not contain a block. Then, if it doesn't, check if
             it has the shortest distance to the target tile. (The distance to the target tile is the value
-            stored in playerGrid). Make sure not to allow a direction change if previously moving down (no 180
+            stored in aheadGrid). Make sure not to allow a direction change if previously moving down (no 180
             degree turns).
              */
-            int[] upCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.UP.getDY()))),
+            int[] upCoordinates = {(int) ((ghost.getPosition().getY()  / BLOCK_SIZE + Math.signum(MoveDirection.UP.getDY()))),
                     (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.UP.getDX())))};
 
             // avoid indexOutOfBounds
             if (upCoordinates[0] > 0 && moveDirection != MoveDirection.DOWN && blockGrid[upCoordinates[0]][upCoordinates[1]] == 0)
             {
-                int upDistance = playerGrid[upCoordinates[0]][upCoordinates[1]];
+                int upDistance = aheadGrid[upCoordinates[0]][upCoordinates[1]];
                 if (upDistance < min)
                 {
                     min = upDistance;
@@ -187,16 +190,16 @@ public class BlinkyControl extends GhostControl
             /*
             Check if the block to the right of the ghost does not contain a block. Then, if it doesn't, check if
             it has the shortest distance to the target tile. (The distance to the target tile is the value
-            stored in playerGrid). Make sure not to allow a direction change if previously moving left (no 180
+            stored in aheadGrid). Make sure not to allow a direction change if previously moving left (no 180
             degree turns).
              */
             int[] rightCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.RIGHT.getDY()))),
                     (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.RIGHT.getDX())))};
 
             // avoid indexOutOfBounds
-            if (rightCoordinates[1] < playerGrid[0].length - 1 && moveDirection != MoveDirection.LEFT && blockGrid[rightCoordinates[0]][rightCoordinates[1]] == 0)
+            if (rightCoordinates[1] < aheadGrid[0].length - 1 && moveDirection != MoveDirection.LEFT && blockGrid[rightCoordinates[0]][rightCoordinates[1]] == 0)
             {
-                int rightDistance = playerGrid[rightCoordinates[0]][rightCoordinates[1]];
+                int rightDistance = aheadGrid[rightCoordinates[0]][rightCoordinates[1]];
                 if (rightDistance < min)
                 {
                     min = rightDistance;
@@ -207,7 +210,7 @@ public class BlinkyControl extends GhostControl
             /*
             Check if the block to the left of the ghost does not contain a block. Then, if it doesn't, check if
             it has the shortest distance to the target tile. (The distance to the target tile is the value
-            stored in playerGrid). Make sure not to allow a direction change if previously moving right (no 180
+            stored in aheadGrid). Make sure not to allow a direction change if previously moving right (no 180
             degree turns).
              */
             int[] leftCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.LEFT.getDY()))),
@@ -216,7 +219,7 @@ public class BlinkyControl extends GhostControl
             // avoid indexOutOfBounds
             if (leftCoordinates[1] > 0 && moveDirection != MoveDirection.RIGHT && blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0)
             {
-                int leftDistance = playerGrid[leftCoordinates[0]][leftCoordinates[1]];
+                int leftDistance = aheadGrid[leftCoordinates[0]][leftCoordinates[1]];
                 if (leftDistance < min)
                 {
                     min = leftDistance;
@@ -227,16 +230,16 @@ public class BlinkyControl extends GhostControl
             /*
             Check if the block below the ghost does not contain a block. Then, if it doesn't, check if
             it has the shortest distance to the target tile. (The distance to the target tile is the value
-            stored in playerGrid). Make sure not to allow a direction change if previously moving up (no 180
+            stored in aheadGrid). Make sure not to allow a direction change if previously moving up (no 180
             degree turns).
              */
             int[] downCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.DOWN.getDY()))),
                     (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.DOWN.getDX())))};
 
             // avoid indexOutOfBounds
-            if (downCoordinates[0] < playerGrid.length - 1 && moveDirection != MoveDirection.UP && blockGrid[downCoordinates[0]][downCoordinates[1]] == 0)
+            if (downCoordinates[0] < aheadGrid.length - 1 && moveDirection != MoveDirection.UP && blockGrid[downCoordinates[0]][downCoordinates[1]] == 0)
             {
-                int downDistance = playerGrid[downCoordinates[0]][downCoordinates[1]];
+                int downDistance = aheadGrid[downCoordinates[0]][downCoordinates[1]];
                 if (downDistance < min)
                 {
                     min = downDistance;

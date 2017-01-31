@@ -2,6 +2,7 @@ package com.gamedesign.pacman;
 
 import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.ApplicationMode;
+import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.Entities;
 import com.almasb.fxgl.entity.GameEntity;
@@ -15,10 +16,13 @@ import com.gamedesign.pacman.control.PlayerControl;
 import com.gamedesign.pacman.type.EntityType;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+
+import java.util.List;
 
 import static com.gamedesign.pacman.Config.*;
 
@@ -32,6 +36,7 @@ public class PacmanApp extends GameApplication
 
     private IntegerProperty score;
 
+    public static int[][] blockGrid;
 
     @Override
     protected void initSettings(GameSettings gameSettings)
@@ -93,6 +98,8 @@ public class PacmanApp extends GameApplication
 
     }
 
+    public static boolean blockGridInitialized;
+
     @Override
     protected void initGame()
     {
@@ -104,10 +111,14 @@ public class PacmanApp extends GameApplication
         parser.addEntityProducer('B', EntityFactory::makeBlock);
         parser.addEntityProducer('.', EntityFactory::newPellet);
         parser.addEntityProducer('b', EntityFactory::newBlinky);
+        parser.addEntityProducer('p', EntityFactory::newPinky);
 
         Level level = parser.parse("levels/level.txt");
 
         getGameWorld().setLevel(level);
+
+        blockGrid = new int[MAP_SIZE_Y][MAP_SIZE_X];
+        blockGridInitialized = false;
 
         GameEntity background = Entities.builder()
                 .type(EntityType.BACKGROUND)
@@ -117,6 +128,32 @@ public class PacmanApp extends GameApplication
         background.setRenderLayer(RenderLayer.BACKGROUND);
 
         score = new SimpleIntegerProperty();
+    }
+
+    private void updateBlockGrid(){
+        for(int r = 0; r < blockGrid.length; r++)
+        {
+            for(int c = 0; c < blockGrid[r].length; c++)
+            {
+                if(hasBlock(new Point2D(c * BLOCK_SIZE, r * BLOCK_SIZE)))
+                    blockGrid[r][c] = 1;
+            }
+        }
+    }
+
+    public static boolean hasBlock(Point2D tile)
+    {
+        List<Entity> blocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK);
+        tile = new Point2D( tile.getX(),  tile.getY());
+
+        for (Entity block : blocks)
+        {
+            Point2D blockPos = ((GameEntity) block).getPosition();
+            if (blockPos.equals(tile))
+                return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -142,7 +179,11 @@ public class PacmanApp extends GameApplication
     @Override
     protected void onUpdate(double v)
     {
-
+        if(!blockGridInitialized)
+        {
+            updateBlockGrid();
+            blockGridInitialized = true;
+        }
     }
 
     public static void main(String[] args)

@@ -9,6 +9,7 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.gamedesign.pacman.control.PlayerControl;
 import com.gamedesign.pacman.control.ai.BlinkyControl;
+import com.gamedesign.pacman.control.ai.PinkyControl;
 import com.gamedesign.pacman.type.EntityType;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -37,9 +38,21 @@ public class EntityFactory
                 .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
                 .type(EntityType.ENEMY)
                 .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
-                .viewFromNode(new Rectangle(BLOCK_SIZE - 10, BLOCK_SIZE - 10, Color.RED))
+                .viewFromTexture(BLINKY_TEXTURES[0])
                 .with(new CollidableComponent(true))
                 .with(new BlinkyControl())
+                .build();
+    }
+
+    public static GameEntity newPinky(double x, double y)
+    {
+        return Entities.builder()
+                .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
+                .type(EntityType.ENEMY)
+                .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
+                .viewFromTexture(PINKY_TEXTURES[0])
+                .with(new CollidableComponent(true))
+                .with(new PinkyControl())
                 .build();
     }
 
