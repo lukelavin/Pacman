@@ -9,8 +9,12 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.gamedesign.pacman.control.PlayerControl;
 import com.gamedesign.pacman.control.ai.BlinkyControl;
+import com.gamedesign.pacman.control.ai.ClydeControl;
+import com.gamedesign.pacman.control.ai.InkyControl;
 import com.gamedesign.pacman.control.ai.PinkyControl;
 import com.gamedesign.pacman.type.EntityType;
+import com.gamedesign.pacman.type.GhostType;
+import com.gamedesign.pacman.type.GhostTypeComponent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -39,6 +43,7 @@ public class EntityFactory
                 .type(EntityType.ENEMY)
                 .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
                 .viewFromTexture(BLINKY_TEXTURES[0])
+                .with(new GhostTypeComponent(GhostType.BLINKY))
                 .with(new CollidableComponent(true))
                 .with(new BlinkyControl())
                 .build();
@@ -51,8 +56,35 @@ public class EntityFactory
                 .type(EntityType.ENEMY)
                 .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
                 .viewFromTexture(PINKY_TEXTURES[0])
+                .with(new GhostTypeComponent(GhostType.PINKY))
                 .with(new CollidableComponent(true))
                 .with(new PinkyControl())
+                .build();
+    }
+
+    public static GameEntity newInky(double x, double y)
+    {
+        return Entities.builder()
+                .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
+                .type(EntityType.ENEMY)
+                .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
+                .viewFromTexture(INKY_TEXTURES[0])
+                .with(new GhostTypeComponent(GhostType.INKY))
+                .with(new CollidableComponent(true))
+                .with(new InkyControl())
+                .build();
+    }
+
+    public static GameEntity newClyde(double x, double y)
+    {
+        return Entities.builder()
+                .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
+                .type(EntityType.ENEMY)
+                .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
+                .viewFromTexture(CLYDE_TEXTURES[0])
+                .with(new GhostTypeComponent(GhostType.CLYDE))
+                .with(new CollidableComponent(true))
+                .with(new ClydeControl())
                 .build();
     }
 

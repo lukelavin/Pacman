@@ -1,23 +1,11 @@
 package com.gamedesign.pacman.control.ai;
 
 import com.almasb.ents.Entity;
-import com.almasb.fxgl.app.FXGL;
-import com.almasb.fxgl.app.GameApplication;
-import com.almasb.fxgl.entity.EntityView;
-import com.almasb.fxgl.entity.GameEntity;
-import com.almasb.fxgl.time.LocalTimer;
 import com.gamedesign.pacman.PacmanApp;
 import com.gamedesign.pacman.control.MoveDirection;
-import com.gamedesign.pacman.control.MoveMode;
-import com.gamedesign.pacman.control.PlayerControl;
-import com.gamedesign.pacman.type.EntityType;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.gamedesign.pacman.Config.*;
 import static com.gamedesign.pacman.PacmanApp.blockGridInitialized;
@@ -29,18 +17,7 @@ public class PinkyControl extends GhostControl
 {
     private final int[] homeCoordinates = {0, 0 + 3}; // Blinky's "home corner", an unreachable spot that he will try to move towards in scatter mode.
     private int[][] aheadGrid;
-    private LocalTimer textureTimer;
-    private int texturei;
-    
-    @Override
-    public void onAdded(Entity entity)
-    {
-        homeGrid = new int[MAP_SIZE_Y][MAP_SIZE_X];
-        textureTimer = FXGL.newLocalTimer();
-        texturei = 0;
 
-        super.onAdded(entity);
-    }
 
     @Override
     public void onUpdate(Entity entity, double v)
@@ -53,7 +30,7 @@ public class PinkyControl extends GhostControl
             blockGrid = PacmanApp.blockGrid;
             playerGrid = playerControl().playerGrid;
             aheadGrid = playerControl().aheadGrid;
-            initHomeGrid();
+            initHomeGrid(homeCoordinates);
 
             gridsInitialized = true;
         }
@@ -69,86 +46,6 @@ public class PinkyControl extends GhostControl
 
         if(gridsInitialized)
             super.onUpdate(entity, v);
-    }
-
-    private void initHomeGrid()
-    {
-        // fill the array with a sentinel value
-        for (int i = 0; i < homeGrid.length; i++)
-            for (int j = 0; j < homeGrid[i].length; j++)
-                homeGrid[i][j] = -1;
-
-        int distance = 0;
-        List<int[]> recentlyMarked = new ArrayList<int[]>();
-
-        homeGrid[homeCoordinates[0]][homeCoordinates[1]] = distance;
-        distance++;
-        recentlyMarked.add(new int[] {homeCoordinates[0], homeCoordinates[1]});
-        int numberOfSentinels = homeGrid.length * homeGrid[0].length;
-
-        int numberOfBlocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK).size();
-
-        while(numberOfSentinels > numberOfBlocks)
-        {
-            List<int[]> temp = new ArrayList<int[]>();
-
-            for(int[] coordinates : recentlyMarked)
-            {
-                int r = coordinates[0];
-                int c = coordinates[1];
-
-                //check if the tile above exists and does not have a block
-                //if so, then mark its distance from the goal
-                if (r > 0)
-                {
-                    if (homeGrid[r - 1][c] == -1 && blockGrid[r - 1][c] == 0)
-                    {
-                        homeGrid[r - 1][c] = distance;
-                        numberOfSentinels--;
-                        temp.add(new int[] {r - 1, c});
-                    }
-                }
-
-                //check if the tile to the right exists and does not have a block
-                //if so, then its distance from the goal
-                if (c < homeGrid[r].length - 1)
-                {
-                    if (homeGrid[r][c + 1] == -1 && blockGrid[r][c + 1] == 0)
-                    {
-                        homeGrid[r][c + 1] = distance;
-                        numberOfSentinels--;
-                        temp.add(new int[] {r, c + 1});
-                    }
-                }
-
-                //check if the tile below exists and does not have a block
-                //if so, mark its distance from the goal
-                if (r < homeGrid.length - 1)
-                {
-                    if (homeGrid[r + 1][c] == -1 && blockGrid[r + 1][c] == 0)
-                    {
-                        homeGrid[r + 1][c] = distance;
-                        numberOfSentinels--;
-                        temp.add(new int[] {r + 1, c});
-                    }
-                }
-
-                //check if the tile to the left exists and does not have a block
-                //if so, then mark its distance from the goal
-                if (c > 0)
-                {
-                    if (homeGrid[r][c - 1] == -1 && blockGrid[r][c - 1] == 0)
-                    {
-                        homeGrid[r][c - 1] = distance;
-                        numberOfSentinels--;
-                        temp.add(new int[] {r, c - 1});
-                    }
-                }
-                //System.out.println(toString(homeGrid));
-            }
-            recentlyMarked = temp;
-            distance++;
-        }
     }
 
     @Override

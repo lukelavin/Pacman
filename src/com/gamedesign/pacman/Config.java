@@ -17,6 +17,8 @@ public class Config
     public static final String[] PACMAN_TEXTURES = {"pacman0.png", "pacman1.png", "pacman2.png", "pacman1.png"};
     public static final String[] BLINKY_TEXTURES = {"blinky0.png", "blinky1.png"};
     public static final String[] PINKY_TEXTURES = {"pinky0.png", "pinky1.png"};
+    public static final String[] INKY_TEXTURES = {"inky0.png", "inky1.png"};
+    public static final String[] CLYDE_TEXTURES = {"clyde0.png", "clyde1.png"};
 
     public static final int PACMAN_SPEED = 2 * 60;
 }

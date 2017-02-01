@@ -7,7 +7,7 @@ B....B...B...B....B
 BBBB.BBB B BBB.BBBB
 BBBB.B       B.BBBB
 BBBB.B BBbBB B.BBBB
-    .  Bp  B  .
+    .  BpciB  .
 BBBB.B BBBBB B.BBBB
 BBBB.B       B.BBBB
 BBBB.B BBBBB B.BBBB
