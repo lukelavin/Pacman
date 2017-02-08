@@ -6,7 +6,14 @@ import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.time.LocalTimer;
+import com.gamedesign.pacman.PacmanApp;
+import com.gamedesign.pacman.control.ai.BlinkyControl;
+import com.gamedesign.pacman.control.ai.ClydeControl;
+import com.gamedesign.pacman.control.ai.InkyControl;
+import com.gamedesign.pacman.control.ai.PinkyControl;
 import com.gamedesign.pacman.type.EntityType;
+import com.gamedesign.pacman.type.GhostType;
+import com.gamedesign.pacman.type.GhostTypeComponent;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -24,8 +31,8 @@ public class PlayerControl extends AbstractControl
     private LocalTimer textureTimer;
     private int i;
 
-    public int[][] playerGrid;
-    public int[][] aheadGrid;
+    private int[][] playerGrid;
+    private int[][] aheadGrid;
 
     private double v;
 
@@ -71,87 +78,108 @@ public class PlayerControl extends AbstractControl
 
     private void updateGrids()
     {
-        updatePlayerGrid();
-        updateAheadGrid();
-    }
+        playerGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid((int) (nearestTile().getY() / BLOCK_SIZE), (int) (nearestTile().getX() / BLOCK_SIZE));
 
-    public void updatePlayerGrid()
-    {
-        // fill the array with a sentinel value
-        for (int i = 0; i < playerGrid.length; i++)
-            for (int j = 0; j < playerGrid[i].length; j++)
-                playerGrid[i][j] = -1;
-
-        int distance = 0;
-
-        /*
-        Mark the goal point as distance 0 to start the path from there.
-        Also, decrement numberOfSentinels accordingly.
-         */
-
-        playerGrid[(int) (nearestTile().getY() / BLOCK_SIZE)][(int) (nearestTile().getX() / BLOCK_SIZE)] = 0;
-        int numberOfSentinels = playerGrid.length * playerGrid[0].length - 1;
-
-        int numberOfBlocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK).size();
-
-        while (numberOfSentinels > numberOfBlocks)
+        if(prevDirection != null &&
+                nearestTile().getY() / BLOCK_SIZE > 1 && nearestTile().getY() / BLOCK_SIZE < aheadGrid.length - 3 &&
+                nearestTile().getX() / BLOCK_SIZE > 1 && nearestTile().getX() / BLOCK_SIZE < aheadGrid[0].length - 3)
         {
-            for (int r = 0; r < playerGrid.length; r++)
-            {
-                for (int c = 0; c < playerGrid[r].length; c++)
-                {
-                    //check and mark the blocks around the most recently marked blocks
-                    if (playerGrid[r][c] == distance)
-                    {
-                        //check if the tile above exists and does not have a block
-                        //if so, then mark its distance from the goal
-                        if (r > 0)
-                        {
-                            if (playerGrid[r - 1][c] == -1 && !hasBlock(new Point2D(c * BLOCK_SIZE, (r - 1) * BLOCK_SIZE)))
-                            {
-                                playerGrid[r - 1][c] = distance + 1;
-                                numberOfSentinels--;
-                            }
-                        }
+            aheadGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid((int) (nearestTile().getY() + Math.signum(prevDirection.getDY()) * BLOCK_SIZE * 2) / BLOCK_SIZE,
+                    (int) (nearestTile().getX() + Math.signum(prevDirection.getDX()) * BLOCK_SIZE * 2) / BLOCK_SIZE);
+        }
 
-                        //check if the tile to the right exists and does not have a block
-                        //if so, then its distance from the goal
-                        if (c < playerGrid[r].length - 1)
-                        {
-                            if (playerGrid[r][c + 1] == -1 && !hasBlock(new Point2D((c + 1) * BLOCK_SIZE, r * BLOCK_SIZE)))
-                            {
-                                playerGrid[r][c + 1] = distance + 1;
-                                numberOfSentinels--;
-                            }
-                        }
+        List<Entity> ghosts = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.ENEMY);
 
-                        //check if the tile below exists and does not have a block
-                        //if so, mark its distance from the goal
-                        if (r < playerGrid.length - 1)
-                        {
-                            if (playerGrid[r + 1][c] == -1 && !hasBlock(new Point2D(c * BLOCK_SIZE, (r + 1) * BLOCK_SIZE)))
-                            {
-                                playerGrid[r + 1][c] = distance + 1;
-                                numberOfSentinels--;
-                            }
-                        }
-
-                        //check if the tile to the left exists and does not have a block
-                        //if so, then mark its distance from the goal
-                        if (c > 0)
-                        {
-                            if (playerGrid[r][c - 1] == -1 && !hasBlock(new Point2D((c - 1) * BLOCK_SIZE, r * BLOCK_SIZE)))
-                            {
-                                playerGrid[r][c - 1] = distance + 1;
-                                numberOfSentinels--;
-                            }
-                        }
-                    }
-                }
-            }
-            distance++;
+        for(Entity e : ghosts)
+        {
+            if(((GameEntity) e).getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.BLINKY)
+                ((GameEntity) e).getControlUnsafe(BlinkyControl.class).pushGridUpdate();
+            else if(((GameEntity) e).getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.PINKY)
+                ((GameEntity) e).getControlUnsafe(PinkyControl.class).pushGridUpdate();
+            else if(((GameEntity) e).getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.INKY)
+                ((GameEntity) e).getControlUnsafe(InkyControl.class).pushGridUpdate();
+            else if(((GameEntity) e).getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.CLYDE)
+            ((GameEntity) e).getControlUnsafe(ClydeControl.class).pushGridUpdate();
         }
     }
+
+//    public void updatePlayerGrid()
+//    {
+//        // fill the array with a sentinel value
+//        for (int i = 0; i < playerGrid.length; i++)
+//            for (int j = 0; j < playerGrid[i].length; j++)
+//                playerGrid[i][j] = -1;
+//
+//        int distance = 0;
+//
+//        /*
+//        Mark the goal point as distance 0 to start the path from there.
+//        Also, decrement numberOfSentinels accordingly.
+//         */
+//
+//        playerGrid[(int) (nearestTile().getY() / BLOCK_SIZE)][(int) (nearestTile().getX() / BLOCK_SIZE)] = 0;
+//        int numberOfSentinels = playerGrid.length * playerGrid[0].length - 1;
+//
+//        int numberOfBlocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK).size();
+//
+//        while (numberOfSentinels > numberOfBlocks)
+//        {
+//            for (int r = 0; r < playerGrid.length; r++)
+//            {
+//                for (int c = 0; c < playerGrid[r].length; c++)
+//                {
+//                    //check and mark the blocks around the most recently marked blocks
+//                    if (playerGrid[r][c] == distance)
+//                    {
+//                        //check if the tile above exists and does not have a block
+//                        //if so, then mark its distance from the goal
+//                        if (r > 0)
+//                        {
+//                            if (playerGrid[r - 1][c] == -1 && !hasBlock(new Point2D(c * BLOCK_SIZE, (r - 1) * BLOCK_SIZE)))
+//                            {
+//                                playerGrid[r - 1][c] = distance + 1;
+//                                numberOfSentinels--;
+//                            }
+//                        }
+//
+//                        //check if the tile to the right exists and does not have a block
+//                        //if so, then its distance from the goal
+//                        if (c < playerGrid[r].length - 1)
+//                        {
+//                            if (playerGrid[r][c + 1] == -1 && !hasBlock(new Point2D((c + 1) * BLOCK_SIZE, r * BLOCK_SIZE)))
+//                            {
+//                                playerGrid[r][c + 1] = distance + 1;
+//                                numberOfSentinels--;
+//                            }
+//                        }
+//
+//                        //check if the tile below exists and does not have a block
+//                        //if so, mark its distance from the goal
+//                        if (r < playerGrid.length - 1)
+//                        {
+//                            if (playerGrid[r + 1][c] == -1 && !hasBlock(new Point2D(c * BLOCK_SIZE, (r + 1) * BLOCK_SIZE)))
+//                            {
+//                                playerGrid[r + 1][c] = distance + 1;
+//                                numberOfSentinels--;
+//                            }
+//                        }
+//
+//                        //check if the tile to the left exists and does not have a block
+//                        //if so, then mark its distance from the goal
+//                        if (c > 0)
+//                        {
+//                            if (playerGrid[r][c - 1] == -1 && !hasBlock(new Point2D((c - 1) * BLOCK_SIZE, r * BLOCK_SIZE)))
+//                            {
+//                                playerGrid[r][c - 1] = distance + 1;
+//                                numberOfSentinels--;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            distance++;
+//        }
+//    }
 
     public void updateAheadGrid()
     {
@@ -440,6 +468,9 @@ public class PlayerControl extends AbstractControl
         gameEntity.getView().setScaleX(1);
     }
 
+    public int[][] getPlayerGrid(){ return playerGrid; }
+    public int[][] getAheadGrid(){ return aheadGrid; }
+
 
     public static String toString(int[][] arr)
     {
@@ -448,7 +479,7 @@ public class PlayerControl extends AbstractControl
         {
             for (int c = 0; c < arr[r].length; c++)
             {
-                if(arr[r][c] < 10)
+                if(arr[r][c] < 10 && arr[r][c] >= 0)
                     output += "0";
                 output += arr[r][c] + ", ";
             }

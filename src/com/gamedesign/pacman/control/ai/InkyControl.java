@@ -40,10 +40,10 @@ public class InkyControl extends GhostControl
     public void onUpdate(Entity entity, double v)
     {
         if(blockGridInitialized && !gridsInitialized){
-            blockGrid = PacmanApp.blockGrid;
-            playerGrid = playerControl().playerGrid;
-            aheadGrid = playerControl().aheadGrid;
-            initHomeGrid(homeCoordinates);
+            blockGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getBlockGrid();
+            playerGrid = playerControl().getPlayerGrid();
+            aheadGrid = playerControl().getAheadGrid();
+            homeGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid(homeCoordinates[0], homeCoordinates[1]);
 
             gridsInitialized = true;
         }
@@ -59,6 +59,13 @@ public class InkyControl extends GhostControl
 
         if(gridsInitialized)
             super.onUpdate(entity, v);
+    }
+
+    @Override
+    public void pushGridUpdate()
+    {
+        playerGrid = playerControl().getPlayerGrid();
+        aheadGrid = playerControl().getAheadGrid();
     }
 
     @Override

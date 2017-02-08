@@ -1,6 +1,7 @@
 package com.gamedesign.pacman.control.ai;
 
 import com.almasb.ents.Entity;
+import com.almasb.fxgl.app.FXGL;
 import com.gamedesign.pacman.PacmanApp;
 import com.gamedesign.pacman.control.MoveDirection;
 import javafx.scene.image.Image;
@@ -27,10 +28,10 @@ public class PinkyControl extends GhostControl
         on the first frame.
          */
         if(blockGridInitialized && !gridsInitialized){
-            blockGrid = PacmanApp.blockGrid;
-            playerGrid = playerControl().playerGrid;
-            aheadGrid = playerControl().aheadGrid;
-            initHomeGrid(homeCoordinates);
+            blockGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getBlockGrid();
+            playerGrid = playerControl().getPlayerGrid();
+            aheadGrid = playerControl().getAheadGrid();
+            homeGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid(homeCoordinates[0], homeCoordinates[1]);
 
             gridsInitialized = true;
         }
@@ -46,6 +47,13 @@ public class PinkyControl extends GhostControl
 
         if(gridsInitialized)
             super.onUpdate(entity, v);
+    }
+
+    @Override
+    public void pushGridUpdate()
+    {
+        playerGrid = playerControl().getPlayerGrid();
+        aheadGrid = playerControl().getAheadGrid();
     }
 
     @Override

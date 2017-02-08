@@ -105,6 +105,8 @@ public abstract class GhostControl extends AbstractControl
         }
     }
 
+    public abstract void pushGridUpdate();
+
     public abstract void attack();
 
     public void scatter(){
@@ -219,85 +221,85 @@ public abstract class GhostControl extends AbstractControl
         }
     }
 
-    void initHomeGrid(int[] homeCoordinates)
-    {
-        // fill the array with a sentinel value
-        for (int i = 0; i < homeGrid.length; i++)
-            for (int j = 0; j < homeGrid[i].length; j++)
-                homeGrid[i][j] = -1;
-
-        int distance = 0;
-        List<int[]> recentlyMarked = new ArrayList<int[]>();
-
-        homeGrid[homeCoordinates[0]][homeCoordinates[1]] = distance;
-        distance++;
-        recentlyMarked.add(new int[] {homeCoordinates[0], homeCoordinates[1]});
-        int numberOfSentinels = homeGrid.length * homeGrid[0].length;
-
-        int numberOfBlocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK).size();
-
-        while(numberOfSentinels > numberOfBlocks)
-        {
-            List<int[]> temp = new ArrayList<int[]>();
-
-            for(int[] coordinates : recentlyMarked)
-            {
-                int r = coordinates[0];
-                int c = coordinates[1];
-
-                //check if the tile above exists and does not have a block
-                //if so, then mark its distance from the goal
-                if (r > 0)
-                {
-                    if (homeGrid[r - 1][c] == -1 && blockGrid[r - 1][c] == 0)
-                    {
-                        homeGrid[r - 1][c] = distance;
-                        numberOfSentinels--;
-                        temp.add(new int[] {r - 1, c});
-                    }
-                }
-
-                //check if the tile to the right exists and does not have a block
-                //if so, then its distance from the goal
-                if (c < homeGrid[r].length - 1)
-                {
-                    if (homeGrid[r][c + 1] == -1 && blockGrid[r][c + 1] == 0)
-                    {
-                        homeGrid[r][c + 1] = distance;
-                        numberOfSentinels--;
-                        temp.add(new int[] {r, c + 1});
-                    }
-                }
-
-                //check if the tile below exists and does not have a block
-                //if so, mark its distance from the goal
-                if (r < homeGrid.length - 1)
-                {
-                    if (homeGrid[r + 1][c] == -1 && blockGrid[r + 1][c] == 0)
-                    {
-                        homeGrid[r + 1][c] = distance;
-                        numberOfSentinels--;
-                        temp.add(new int[] {r + 1, c});
-                    }
-                }
-
-                //check if the tile to the left exists and does not have a block
-                //if so, then mark its distance from the goal
-                if (c > 0)
-                {
-                    if (homeGrid[r][c - 1] == -1 && blockGrid[r][c - 1] == 0)
-                    {
-                        homeGrid[r][c - 1] = distance;
-                        numberOfSentinels--;
-                        temp.add(new int[] {r, c - 1});
-                    }
-                }
-                //System.out.println(toString(homeGrid));
-            }
-            recentlyMarked = temp;
-            distance++;
-        }
-    }
+//    void initHomeGrid(int[] homeCoordinates)
+//    {
+//        // fill the array with a sentinel value
+//        for (int i = 0; i < homeGrid.length; i++)
+//            for (int j = 0; j < homeGrid[i].length; j++)
+//                homeGrid[i][j] = -1;
+//
+//        int distance = 0;
+//        List<int[]> recentlyMarked = new ArrayList<int[]>();
+//
+//        homeGrid[homeCoordinates[0]][homeCoordinates[1]] = distance;
+//        distance++;
+//        recentlyMarked.add(new int[] {homeCoordinates[0], homeCoordinates[1]});
+//        int numberOfSentinels = homeGrid.length * homeGrid[0].length;
+//
+//        int numberOfBlocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK).size();
+//
+//        while(numberOfSentinels > numberOfBlocks)
+//        {
+//            List<int[]> temp = new ArrayList<int[]>();
+//
+//            for(int[] coordinates : recentlyMarked)
+//            {
+//                int r = coordinates[0];
+//                int c = coordinates[1];
+//
+//                //check if the tile above exists and does not have a block
+//                //if so, then mark its distance from the goal
+//                if (r > 0)
+//                {
+//                    if (homeGrid[r - 1][c] == -1 && blockGrid[r - 1][c] == 0)
+//                    {
+//                        homeGrid[r - 1][c] = distance;
+//                        numberOfSentinels--;
+//                        temp.add(new int[] {r - 1, c});
+//                    }
+//                }
+//
+//                //check if the tile to the right exists and does not have a block
+//                //if so, then its distance from the goal
+//                if (c < homeGrid[r].length - 1)
+//                {
+//                    if (homeGrid[r][c + 1] == -1 && blockGrid[r][c + 1] == 0)
+//                    {
+//                        homeGrid[r][c + 1] = distance;
+//                        numberOfSentinels--;
+//                        temp.add(new int[] {r, c + 1});
+//                    }
+//                }
+//
+//                //check if the tile below exists and does not have a block
+//                //if so, mark its distance from the goal
+//                if (r < homeGrid.length - 1)
+//                {
+//                    if (homeGrid[r + 1][c] == -1 && blockGrid[r + 1][c] == 0)
+//                    {
+//                        homeGrid[r + 1][c] = distance;
+//                        numberOfSentinels--;
+//                        temp.add(new int[] {r + 1, c});
+//                    }
+//                }
+//
+//                //check if the tile to the left exists and does not have a block
+//                //if so, then mark its distance from the goal
+//                if (c > 0)
+//                {
+//                    if (homeGrid[r][c - 1] == -1 && blockGrid[r][c - 1] == 0)
+//                    {
+//                        homeGrid[r][c - 1] = distance;
+//                        numberOfSentinels--;
+//                        temp.add(new int[] {r, c - 1});
+//                    }
+//                }
+//                //System.out.println(toString(homeGrid));
+//            }
+//            recentlyMarked = temp;
+//            distance++;
+//        }
+//    }
 
     boolean onTile()
     {
