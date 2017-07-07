@@ -5,6 +5,8 @@ import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.time.LocalTimer;
+import com.gamedesign.pacman.GameState;
+import com.gamedesign.pacman.PacmanApp;
 import com.gamedesign.pacman.control.MoveDirection;
 import com.gamedesign.pacman.control.MoveMode;
 import com.gamedesign.pacman.control.PlayerControl;
@@ -40,9 +42,9 @@ public abstract class GhostControl extends AbstractControl
 
     double v;
 
-    GameEntity player(){
-        return (GameEntity) FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.PLAYER).get(0);
-    }
+    GameState gameState(){ return ((PacmanApp) FXGL.getApp()).getGameState(); }
+
+    GameEntity player(){ return (GameEntity) FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.PLAYER).get(0); }
 
     PlayerControl playerControl(){
         return player().getControlUnsafe(PlayerControl.class);
@@ -64,44 +66,46 @@ public abstract class GhostControl extends AbstractControl
     public void onUpdate(Entity entity, double v)
     {
         this.v = v;
-
-        /*
-        Ghosts in Pacman do not, in fact, chase Pacman the entire time. Ghosts alternate between
-        periods of attacking Pacman and periods of "scattering" back to their home corners. This
-        block of code uses the sequence defined in mode[] to determine the right mode for the ghosts.
-         */
-        switch (mode[i])
+        if(gameState() == GameState.ACTIVE)
         {
-            case SCATTERLONG:
-                scatter();
-                if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
-                {
-                    i++;
-                    modeTimer.capture();
-                }
-                break;
+            /*
+            Ghosts in Pacman do not, in fact, chase Pacman the entire time. Ghosts alternate between
+            periods of attacking Pacman and periods of "scattering" back to their home corners. This
+            block of code uses the sequence defined in mode[] to determine the right mode for the ghosts.
+            */
+            switch (mode[i])
+            {
+                case SCATTERLONG:
+                    scatter();
+                    if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
+                    {
+                        i++;
+                        modeTimer.capture();
+                    }
+                    break;
 
-            case SCATTERSHORT:
-                scatter();
-                if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
-                {
-                    i++;
-                    modeTimer.capture();
-                }
-                break;
+                case SCATTERSHORT:
+                    scatter();
+                    if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
+                    {
+                        i++;
+                        modeTimer.capture();
+                    }
+                    break;
 
-            case ATTACKLONG:
-                attack();
-                if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
-                {
-                    i++;
-                    modeTimer.capture();
-                }
-                break;
+                case ATTACKLONG:
+                    attack();
+                    if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
+                    {
+                        i++;
+                        modeTimer.capture();
+                    }
+                    break;
 
-            case ATTACKFOREVER:
-                attack();
-                break;
+                case ATTACKFOREVER:
+                    attack();
+                    break;
+            }
         }
     }
 

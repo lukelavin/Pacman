@@ -6,6 +6,7 @@ import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.time.LocalTimer;
+import com.gamedesign.pacman.GameState;
 import com.gamedesign.pacman.PacmanApp;
 import com.gamedesign.pacman.control.ai.BlinkyControl;
 import com.gamedesign.pacman.control.ai.ClydeControl;
@@ -34,6 +35,8 @@ public class PlayerControl extends AbstractControl
     private int[][] playerGrid;
     private int[][] aheadGrid;
 
+    GameState gameState(){ return ((PacmanApp) FXGL.getApp()).getGameState(); }
+
     private double v;
 
     @Override
@@ -51,29 +54,32 @@ public class PlayerControl extends AbstractControl
     public void onUpdate(Entity entity, double v)
     {
         this.v = v;
-        if (moveDirection != null)
+
+        if(gameState() == GameState.ACTIVE)
         {
-            move();
-        }
-        else // if Pacman is stopped, just set the texture to the default and repeatedly capture to stop animating
-        {
-            i = 0;
-            gameEntity.getMainViewComponent().setView(new ImageView("assets/textures/" + PACMAN_TEXTURES[i]));
-            textureTimer.capture();
+            if (moveDirection != null)
+            {
+                move();
+            }
+            else // if Pacman is stopped, just repeatedly capture to stop animating
+            {
+                textureTimer.capture();
+            }
+
+            if(blockGridInitialized && onTile())
+                updateGrids();
+
+            // every 50 ms, if Pacman is moving, switch to the next texture
+            // 50 is arbitrary, could and probably should be derived from speed in the future
+            if(textureTimer.elapsed(Duration.millis(50))){
+                i = (i + 1) % (PACMAN_TEXTURES.length);
+
+                gameEntity.getMainViewComponent().setView(new ImageView("assets/textures/" + PACMAN_TEXTURES[i]));
+                handleTexture(); // make sure to update the rotation with the new view
+                textureTimer.capture();
+            }
         }
 
-        if(blockGridInitialized && onTile())
-            updateGrids();
-
-        // every 50 ms, if Pacman is moving, switch to the next texture
-        // 50 is arbitrary, could and probably should be derived from speed in the future
-        if(textureTimer.elapsed(Duration.millis(50))){
-            i = (i + 1) % (PACMAN_TEXTURES.length);
-
-            gameEntity.getMainViewComponent().setView(new ImageView("assets/textures/" + PACMAN_TEXTURES[i]));
-            handleTexture(); // make sure to update the rotation with the new view
-            textureTimer.capture();
-        }
     }
 
     private void updateGrids()

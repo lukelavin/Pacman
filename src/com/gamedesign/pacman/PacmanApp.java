@@ -28,6 +28,7 @@ import static com.gamedesign.pacman.Config.*;
 public class PacmanApp extends GameApplication
 {
     private GameState gameState;
+    public GameState getGameState(){ return gameState; }
 
     private PlayerControl playerControl()
     {
@@ -35,7 +36,6 @@ public class PacmanApp extends GameApplication
     }
 
     private IntegerProperty score;
-
 
     private AStarGridStorage gridStorage;
 
