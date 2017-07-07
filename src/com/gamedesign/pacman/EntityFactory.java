@@ -15,8 +15,10 @@ import com.gamedesign.pacman.control.ai.PinkyControl;
 import com.gamedesign.pacman.type.EntityType;
 import com.gamedesign.pacman.type.GhostType;
 import com.gamedesign.pacman.type.GhostTypeComponent;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 
 import static com.gamedesign.pacman.Config.*;
@@ -26,12 +28,13 @@ public class EntityFactory
     public static GameEntity newPlayer(double x, double y)
     {
         return Entities.builder()
-                .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
+                .at(new Point2D(x * BLOCK_SIZE, y * BLOCK_SIZE).add(PACMAN_OFFSET))
                 .type(EntityType.PLAYER)
                 .bbox(new HitBox("BODY", BoundingShape.circle(BLOCK_SIZE / 2 - 5)))
                 .viewFromTexture(PACMAN_TEXTURES[0])
                 //.viewFromNode(new Circle(BLOCK_SIZE / 2 - 5, Color.YELLOW))
                 .with(new CollidableComponent(true))
+                .with(new SpawnPointComponent())
                 .with(new PlayerControl())
                 .build();
     }
@@ -42,9 +45,10 @@ public class EntityFactory
                 .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
                 .type(EntityType.ENEMY)
                 .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
-                .viewFromTexture(BLINKY_TEXTURES[0])
+                .viewFromTexture(BLINKY_DOWN_TEXTURES[0])
                 .with(new GhostTypeComponent(GhostType.BLINKY))
                 .with(new CollidableComponent(true))
+                .with(new SpawnPointComponent())
                 .with(new BlinkyControl())
                 .build();
     }
@@ -55,9 +59,10 @@ public class EntityFactory
                 .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
                 .type(EntityType.ENEMY)
                 .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
-                .viewFromTexture(PINKY_TEXTURES[0])
+                .viewFromTexture(PINKY_DOWN_TEXTURES[0])
                 .with(new GhostTypeComponent(GhostType.PINKY))
                 .with(new CollidableComponent(true))
+                .with(new SpawnPointComponent())
                 .with(new PinkyControl())
                 .build();
     }
@@ -68,9 +73,10 @@ public class EntityFactory
                 .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
                 .type(EntityType.ENEMY)
                 .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
-                .viewFromTexture(INKY_TEXTURES[0])
+                .viewFromTexture(INKY_DOWN_TEXTURES[0])
                 .with(new GhostTypeComponent(GhostType.INKY))
                 .with(new CollidableComponent(true))
+                .with(new SpawnPointComponent())
                 .with(new InkyControl())
                 .build();
     }
@@ -81,9 +87,10 @@ public class EntityFactory
                 .at(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5)
                 .type(EntityType.ENEMY)
                 .bbox(new HitBox("BODY", BoundingShape.box(BLOCK_SIZE - 10, BLOCK_SIZE - 10)))
-                .viewFromTexture(CLYDE_TEXTURES[0])
+                .viewFromTexture(CLYDE_DOWN_TEXTURES[0])
                 .with(new GhostTypeComponent(GhostType.CLYDE))
                 .with(new CollidableComponent(true))
+                .with(new SpawnPointComponent())
                 .with(new ClydeControl())
                 .build();
     }
@@ -122,6 +129,36 @@ public class EntityFactory
                 .type(EntityType.PELLET)
                 .bbox(new HitBox("BODY", BoundingShape.circle(BLOCK_SIZE / 8)))
                 .viewFromNode(entityView)
+                .with(new CollidableComponent(true))
+                .build();
+    }
+
+    public static GameEntity newTeleporter(double x, double y)
+    {
+//        Ellipse ellipse = new Ellipse(BLOCK_SIZE / 4, BLOCK_SIZE / 2);
+//        ellipse.setFill(Color.ORANGE);
+//
+//        EntityView entityView = new EntityView(ellipse);
+//        entityView.setRenderLayer(new RenderLayer()
+//        {
+//            @Override
+//            public String name()
+//            {
+//                return "BACKGROUND2";
+//            }
+//
+//            @Override
+//            public int index()
+//            {
+//                return 1001;
+//            }
+//        });
+
+        return Entities.builder()
+                .at(x * BLOCK_SIZE, y * BLOCK_SIZE)
+                .type(EntityType.TELEPORTER)
+                .bbox(new HitBox("BODY", BoundingShape.circle(BLOCK_SIZE / 2)))
+//                .viewFromNodeWithBBox(entityView)
                 .with(new CollidableComponent(true))
                 .build();
     }

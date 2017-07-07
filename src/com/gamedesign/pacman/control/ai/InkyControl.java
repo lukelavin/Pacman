@@ -3,11 +3,16 @@ package com.gamedesign.pacman.control.ai;
 import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.entity.GameEntity;
+import com.gamedesign.pacman.AStarGridStorage;
+import com.gamedesign.pacman.EntityFactory;
+import com.gamedesign.pacman.GameState;
 import com.gamedesign.pacman.PacmanApp;
 import com.gamedesign.pacman.control.MoveDirection;
 import com.gamedesign.pacman.type.EntityType;
 import com.gamedesign.pacman.type.GhostType;
 import com.gamedesign.pacman.type.GhostTypeComponent;
+import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -36,29 +41,35 @@ public class InkyControl extends GhostControl
         return null;
     }
 
+
+    @Override
+    public void onAdded(Entity entity) {
+        System.out.println("inky");
+        super.onAdded(entity);
+        modes = INKY_MODES;
+    }
+
     @Override
     public void onUpdate(Entity entity, double v)
     {
-        if(blockGridInitialized && !gridsInitialized){
-            blockGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getBlockGrid();
-            playerGrid = playerControl().getPlayerGrid();
-            aheadGrid = playerControl().getAheadGrid();
-            homeGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid(homeCoordinates[0], homeCoordinates[1]);
-
-            gridsInitialized = true;
-        }
-
-        if(textureTimer.elapsed(Duration.millis(75)))
+        if(((PacmanApp) FXGL.getApp()).getGameState() == GameState.ACTIVE && ghost != null)
         {
-            texturei = (texturei + 1) % INKY_TEXTURES.length;
-            ghost.getMainViewComponent().setView(new ImageView(new Image("assets/textures/" + INKY_TEXTURES[texturei])));
-            textureTimer.capture();
+            if (blockGridInitialized && !gridsInitialized)
+            {
+                blockGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getBlockGrid();
+                playerGrid = playerControl().getPlayerGrid();
+                aheadGrid = playerControl().getAheadGrid();
+                homeGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid(homeCoordinates[0], homeCoordinates[1]);
+
+                gridsInitialized = true;
+            }
+
+
+            framesSinceDirectionChange++;
+
+            if (gridsInitialized)
+                super.onUpdate(entity, v);
         }
-
-        framesSinceDirectionChange++;
-
-        if(gridsInitialized)
-            super.onUpdate(entity, v);
     }
 
     @Override
@@ -76,16 +87,46 @@ public class InkyControl extends GhostControl
         immediately stop trying to attack Pacman and scatter if he ever gets too close. Note
         that Clyde still, however, will scatter when other ghosts scatter.
          */
-        double dx = ghost.getPosition().getX() - blinky().getPosition().getX();
-        double dy = ghost.getPosition().getY() - blinky().getPosition().getY();
-        double magnitude = Math.sqrt(dx * dx + dy * dy);
+        double dx = player().getPosition().getX() - blinky().getPosition().getX();
+        double dy = player().getPosition().getY() - blinky().getPosition().getY();
+        Point2D blinkyPacmanVector = new Point2D((dx + player().getX()) / BLOCK_SIZE, (dy + player().getY()) / BLOCK_SIZE);
+//        if(blinky().getX() > player().getX())
+//        {
+//            dx = blinky().getPosition().getX() - player().getPosition().getX();
+//        }
+//        else
+//        {
+//            dx = player().getPosition().getX() - blinky().getPosition().getX();
+//        }
+//        if(blinky().getY() > player().getY())
+//        {
+//            dy = blinky().getPosition().getY() - player().getPosition().getY();
+//        }
+//        else
+//        {
+//            dy = player().getPosition().getY() - blinky().getPosition().getY();
+//        }
 
-        if(magnitude <= 12 * BLOCK_SIZE)
+//        blinkyPacmanVector = new Point2D((int) (dx * 2 / BLOCK_SIZE), (int) (dy * 2 / BLOCK_SIZE));
+
+        double xDist = ghost.getX() - player().getX();
+        double yDist = ghost.getY() - player().getY();
+        double distance = Math.sqrt(xDist * xDist + yDist * yDist);
+
+        boolean outOfBounds = blinkyPacmanVector.getX() < 0 ||
+                              blinkyPacmanVector.getY() < 0 ||
+                              blinkyPacmanVector.getX() > MAP_SIZE_X - 1 ||
+                              blinkyPacmanVector.getY() > MAP_SIZE_Y - 1;
+        System.out.println(blinkyPacmanVector + "   " + outOfBounds);
+
+        if(distance < 8 || outOfBounds)
         {
             scatter();
         }
         else
         {
+            aheadGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid((int) blinkyPacmanVector.getY(), (int) blinkyPacmanVector.getX());
+
             int min = Integer.MAX_VALUE; // initialize min as a value that won't interfere with real results
             MoveDirection minDirection = null; // null is fine for minDirection because it will be checked later regardless
 
@@ -95,7 +136,7 @@ public class InkyControl extends GhostControl
             */
             if (!onTile())
             {
-                ghost.getPositionComponent().translate(v * moveDirection.getDX(), v * moveDirection.getDY());
+                ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
             }
             else
             {
@@ -109,7 +150,7 @@ public class InkyControl extends GhostControl
                         (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.UP.getDX())))};
 
                 // avoid indexOutOfBounds
-                if (upCoordinates[0] > 0 && moveDirection != MoveDirection.DOWN && blockGrid[upCoordinates[0]][upCoordinates[1]] == 0)
+                if (upCoordinates[0] >= 0 && moveDirection != MoveDirection.DOWN && blockGrid[upCoordinates[0]][upCoordinates[1]] == 0)
                 {
                     int upDistance = aheadGrid[upCoordinates[0]][upCoordinates[1]];
                     if (upDistance < min)
@@ -129,7 +170,7 @@ public class InkyControl extends GhostControl
                         (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.RIGHT.getDX())))};
 
                 // avoid indexOutOfBounds
-                if (rightCoordinates[1] < aheadGrid[0].length - 1 && moveDirection != MoveDirection.LEFT && blockGrid[rightCoordinates[0]][rightCoordinates[1]] == 0)
+                if (rightCoordinates[1] <= aheadGrid[0].length - 1 && moveDirection != MoveDirection.LEFT && blockGrid[rightCoordinates[0]][rightCoordinates[1]] == 0)
                 {
                     int rightDistance = aheadGrid[rightCoordinates[0]][rightCoordinates[1]];
                     if (rightDistance < min)
@@ -149,7 +190,7 @@ public class InkyControl extends GhostControl
                         (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.LEFT.getDX())))};
 
                 // avoid indexOutOfBounds
-                if (leftCoordinates[1] > 0 && moveDirection != MoveDirection.RIGHT && blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0)
+                if (leftCoordinates[1] >= 0 && moveDirection != MoveDirection.RIGHT && blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0)
                 {
                     int leftDistance = aheadGrid[leftCoordinates[0]][leftCoordinates[1]];
                     if (leftDistance < min)
@@ -169,7 +210,7 @@ public class InkyControl extends GhostControl
                         (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.DOWN.getDX())))};
 
                 // avoid indexOutOfBounds
-                if (downCoordinates[0] < aheadGrid.length - 1 && moveDirection != MoveDirection.UP && blockGrid[downCoordinates[0]][downCoordinates[1]] == 0)
+                if (downCoordinates[0] <= aheadGrid.length - 1 && moveDirection != MoveDirection.UP && blockGrid[downCoordinates[0]][downCoordinates[1]] == 0)
                 {
                     int downDistance = aheadGrid[downCoordinates[0]][downCoordinates[1]];
                     if (downDistance < min)
@@ -184,17 +225,26 @@ public class InkyControl extends GhostControl
                 the ghosts were able to do 360 turns within a single pathway. The easiest way to stop this
                 was just to make sure the ghost can't immediately change directions.
                 */
-                if (framesSinceDirectionChange > 3)
+                if (framesSinceDirectionChange > 5)
                 {
-                    if (minDirection != moveDirection)
+                    if(minDirection != null && minDirection != moveDirection) {
                         framesSinceDirectionChange = 0;
-                    moveDirection = minDirection;
+                        moveDirection = minDirection;
+                    }
                 }
 
                 // move in the newly assigned direction
                 if (moveDirection != null)
-                    ghost.getPositionComponent().translate(v * moveDirection.getDX(), v * moveDirection.getDY());
+                    ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
             }
         }
+    }
+
+    @Override
+    public void respawn()
+    {
+        PacmanApp app = (PacmanApp) FXGL.getApp();
+        app.getGameWorld().addEntity(EntityFactory.newInky((int) spawnPointComponent().getValue().getX() / BLOCK_SIZE, (int) spawnPointComponent().getValue().getY() / BLOCK_SIZE));
+        app.getGameWorld().removeEntity(ghost);
     }
 }

@@ -136,6 +136,7 @@ public class AStarGridStorage
     }
 
 
+    // quick toString method for debugging
     public static String toString(int[][] arr)
     {
         String output = "";

@@ -9,11 +9,11 @@
       xmlns="http://javafx.com/javafx/8.0.60"
       xmlns:fx="http://javafx.com/fxml/1">
 
-    <Rectangle fill="darkgray" width="200" height="840" />
+    <Rectangle fill="black" width="200" height="840" />
 
     <Label fx:id="title" text="Title" translateX="0" translateY="0" textFill="yellow" />
 
-    <Label fx:id="score" translateX="20" translateY="200" textFill="white" />
+    <Label fx:id="score" translateX="5" translateY="740" textFill="white" />
 
     <Canvas fx:id="canvas" width="200" height="840" />
 

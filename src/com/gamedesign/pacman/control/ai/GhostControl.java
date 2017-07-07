@@ -5,49 +5,66 @@ import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.time.LocalTimer;
+import com.gamedesign.pacman.Config;
 import com.gamedesign.pacman.GameState;
 import com.gamedesign.pacman.PacmanApp;
+import com.gamedesign.pacman.SpawnPointComponent;
 import com.gamedesign.pacman.control.MoveDirection;
 import com.gamedesign.pacman.control.MoveMode;
 import com.gamedesign.pacman.control.PlayerControl;
 import com.gamedesign.pacman.type.EntityType;
+import com.gamedesign.pacman.type.GhostType;
+import com.gamedesign.pacman.type.GhostTypeComponent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static com.gamedesign.pacman.Config.BLOCK_SIZE;
-import static com.gamedesign.pacman.Config.MAP_SIZE_X;
-import static com.gamedesign.pacman.Config.MAP_SIZE_Y;
+import static com.gamedesign.pacman.Config.*;
 
 /**
  * Created by lukel on 1/29/2017.
  */
 public abstract class GhostControl extends AbstractControl
 {
+    GameEntity ghost;
     MoveDirection moveDirection;
+    int framesSinceDirectionChange;
+
     LocalTimer modeTimer;
-    final MoveMode[] mode = {MoveMode.SCATTERLONG, MoveMode.ATTACKLONG, MoveMode.SCATTERLONG, MoveMode.ATTACKLONG, MoveMode.SCATTERSHORT, MoveMode.ATTACKLONG, MoveMode.SCATTERSHORT, MoveMode.ATTACKFOREVER};
+    //final MoveMode[] mode = {MoveMode.UNRELEASED, MoveMode.SCATTERLONG, MoveMode.ATTACKLONG, MoveMode.SCATTERLONG, MoveMode.ATTACKLONG, MoveMode.SCATTERSHORT, MoveMode.ATTACKLONG, MoveMode.SCATTERSHORT, MoveMode.ATTACKFOREVER};
+    MoveMode[] modes;
     int i;
 
+    String[] textures;
     LocalTimer textureTimer;
     int texturei;
+    private GhostType ghostType(){
+        return ghost.getComponentUnsafe(GhostTypeComponent.class).getValue();
+    }
 
     int[][] homeGrid;
     int[][] playerGrid;
     int[][] blockGrid;
     boolean gridsInitialized;
-    GameEntity ghost;
-    int framesSinceDirectionChange;
 
     double v;
 
-    GameState gameState(){ return ((PacmanApp) FXGL.getApp()).getGameState(); }
-
-    GameEntity player(){ return (GameEntity) FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.PLAYER).get(0); }
+    GameEntity player(){
+        return (GameEntity) FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.PLAYER).get(0);
+    }
 
     PlayerControl playerControl(){
         return player().getControlUnsafe(PlayerControl.class);
+    }
+
+    SpawnPointComponent spawnPointComponent(){
+        return ghost.getComponentUnsafe(SpawnPointComponent.class);
     }
 
     @Override
@@ -55,61 +72,177 @@ public abstract class GhostControl extends AbstractControl
     {
         ghost = (GameEntity) entity;
         homeGrid = new int[MAP_SIZE_Y][MAP_SIZE_X];
+        gridsInitialized = false;
         textureTimer = FXGL.newLocalTimer();
         texturei = 0;
+        framesSinceDirectionChange = 5;
+
+        spawnPointComponent().setSpawn(ghost.getPosition());
+        System.out.println(spawnPointComponent().getValue().getX() / 40 + " | " + spawnPointComponent().getValue().getY() / 40);
+        moveDirection = MoveDirection.RIGHT;
 
         modeTimer = FXGL.newLocalTimer();
+        modeTimer.capture();
         i = 0;
     }
 
     @Override
     public void onUpdate(Entity entity, double v)
     {
-        this.v = v;
-        if(gameState() == GameState.ACTIVE)
+        if(((PacmanApp) FXGL.getApp()).getGameState() == GameState.ACTIVE && gridsInitialized)
         {
-            /*
-            Ghosts in Pacman do not, in fact, chase Pacman the entire time. Ghosts alternate between
-            periods of attacking Pacman and periods of "scattering" back to their home corners. This
-            block of code uses the sequence defined in mode[] to determine the right mode for the ghosts.
-            */
-            switch (mode[i])
+            this.v = v;
+            if(textureTimer.elapsed(Duration.millis(75)) && moveDirection != null)
             {
+                updateTexture();
+                textureTimer.capture();
+                texturei = (texturei + 1) % textures.length;
+            }
+
+            if(!getSide().isEmpty())
+                ghost.setPosition(getPortal(getSide()).getPosition().add(PACMAN_OFFSET));
+
+        /*
+        Ghosts in Pacman do not, in fact, chase Pacman the entire time. Ghosts alternate between
+        periods of attacking Pacman and periods of "scattering" back to their home corners. This
+        block of code uses the sequence defined in mode[] to determine the right mode for the ghosts.
+         */
+            System.out.println(i);
+            System.out.println(modes[i]);
+            switch (modes[i])
+            {
+                case UNRELEASED:
+                    System.out.println("idle");
+                    idle();
+                    break;
+
                 case SCATTERLONG:
                     scatter();
-                    if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
-                    {
-                        i++;
-                        modeTimer.capture();
-                    }
+                    System.out.println("scatter");
                     break;
 
                 case SCATTERSHORT:
+                    System.out.println("scatter");
                     scatter();
-                    if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
-                    {
-                        i++;
-                        modeTimer.capture();
-                    }
                     break;
 
                 case ATTACKLONG:
+                    System.out.println("attack");
                     attack();
-                    if(modeTimer.elapsed(Duration.millis(mode[i].getDuration())))
-                    {
-                        i++;
-                        modeTimer.capture();
-                    }
                     break;
 
                 case ATTACKFOREVER:
+                    System.out.println("attack");
                     attack();
                     break;
+            }
+
+            if(modeTimer.elapsed(Duration.millis(modes[i].getDuration())))
+            {
+                if(i < modes.length - 1) {
+                    i++;
+                    modeTimer.capture();
+                }
             }
         }
     }
 
+    private String getSide(){
+        if(ghost.getX() <= -ghost.getWidth())
+            return "Left";
+        else if(ghost.getX() >= MAP_SIZE_X * BLOCK_SIZE)
+            return "Right";
+        else if(ghost.getY() <= -ghost.getHeight())
+            return "Up";
+        else if(ghost.getY() >= MAP_SIZE_Y * BLOCK_SIZE)
+            return "Down";
+        return "";
+    }
+
+    private List<GameEntity> portals(){
+        return FXGL.getApp()
+                .getGameWorld()
+                .getEntitiesByType(EntityType.TELEPORTER)
+                .stream()
+                .map(e -> (GameEntity) e)
+                .collect(Collectors.toList());
+    }
+
+    private GameEntity getPortal(String side){
+        HashMap<String, GameEntity> portalMap = new HashMap();
+
+        for(GameEntity e : portals())
+        {
+            if(e.getPositionComponent().getX() == 0)
+                portalMap.put("Left", e);
+            else if(e.getPositionComponent().getX() == (MAP_SIZE_X - 1) * BLOCK_SIZE)
+                portalMap.put("Right", e);
+            else if(e.getPositionComponent().getY() == 0)
+                portalMap.put("Up", e);
+            else if(e.getPositionComponent().getY() == (MAP_SIZE_Y - 1) * BLOCK_SIZE)
+                portalMap.put("Down", e);
+            else{System.out.println(e.getX() + "   " + e.getY());}
+        }
+
+        switch (side)
+        {
+            case "Left" : return portalMap.get("Right");
+            case "Right" : return portalMap.get("Left");
+            case "Up" : return portalMap.get("Down");
+            case "Down" : return portalMap.get("Up");
+        }
+
+        return null;
+    }
+
+    void updateTexture()
+    {
+        String str = ghostType() + "_" + moveDirection + "_TEXTURES";
+        try {
+            Field field = Config.class.getField(str);
+            textures = (String[]) field.get(new Config());
+        } catch (Exception e) {}
+
+        ghost.getMainViewComponent().setView(new ImageView(new Image("assets/textures/" + textures[texturei])));
+    }
+
     public abstract void pushGridUpdate();
+
+    void idle()
+    {
+        if(moveDirection == null)
+            moveDirection = MoveDirection.RIGHT;
+
+        int[] rightCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.RIGHT.getDY()))),
+                (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.RIGHT.getDX())))};
+        int[] leftCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.LEFT.getDY()))),
+                (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.LEFT.getDX())))};
+
+        if(!onTile()){
+            ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
+        }
+        else
+        {
+            switch (moveDirection)
+            {
+                case RIGHT:
+                    if (blockGrid[rightCoordinates[0]][rightCoordinates[1]] == 0) {
+                        ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
+                    } else {
+                        moveDirection = MoveDirection.LEFT;
+                    }
+                    break;
+
+                case LEFT:
+                    if (blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0) {
+                        ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
+                    } else {
+                        moveDirection = MoveDirection.RIGHT;
+                    }
+                    break;
+            }
+        }
+    }
 
     public abstract void attack();
 
@@ -123,7 +256,7 @@ public abstract class GhostControl extends AbstractControl
          */
         if (!onTile())
         {
-            ghost.getPositionComponent().translate(v * moveDirection.getDX(), v * moveDirection.getDY());
+            ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
         }
         else
         {
@@ -177,7 +310,8 @@ public abstract class GhostControl extends AbstractControl
                     (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.LEFT.getDX())))};
 
             // avoid indexOutOfBounds
-            if (leftCoordinates[1] > 0 && moveDirection != MoveDirection.RIGHT && blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0)
+            if (leftCoordinates[1] > 0 && moveDirection != MoveDirection.RIGHT &&
+                    blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0)
             {
                 int leftDistance = homeGrid[leftCoordinates[0]][leftCoordinates[1]];
                 if (leftDistance < min)
@@ -197,7 +331,8 @@ public abstract class GhostControl extends AbstractControl
                     (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.DOWN.getDX())))};
 
             // avoid indexOutOfBounds
-            if (downCoordinates[0] < homeGrid.length - 1 && moveDirection != MoveDirection.UP && blockGrid[downCoordinates[0]][downCoordinates[1]] == 0)
+            if (downCoordinates[0] < homeGrid.length - 1 && moveDirection != MoveDirection.UP &&
+                    blockGrid[downCoordinates[0]][downCoordinates[1]] == 0)
             {
                 int downDistance = homeGrid[downCoordinates[0]][downCoordinates[1]];
                 if (downDistance < min)
@@ -212,7 +347,7 @@ public abstract class GhostControl extends AbstractControl
             the ghosts were able to do 360 turns within a single pathway. The easiest way to stop this
             was just to make sure the ghost can't immediately change directions.
              */
-            if(framesSinceDirectionChange > 3)
+            if(framesSinceDirectionChange > 5)
             {
                 if(minDirection != moveDirection)
                     framesSinceDirectionChange = 0;
@@ -221,89 +356,9 @@ public abstract class GhostControl extends AbstractControl
 
             // move in the newly assigned direction
             if(moveDirection != null)
-                ghost.getPositionComponent().translate(v * moveDirection.getDX(),v * moveDirection.getDY());
+                ghost.getPositionComponent().translate(moveDirection.getDX(),moveDirection.getDY());
         }
     }
-
-//    void initHomeGrid(int[] homeCoordinates)
-//    {
-//        // fill the array with a sentinel value
-//        for (int i = 0; i < homeGrid.length; i++)
-//            for (int j = 0; j < homeGrid[i].length; j++)
-//                homeGrid[i][j] = -1;
-//
-//        int distance = 0;
-//        List<int[]> recentlyMarked = new ArrayList<int[]>();
-//
-//        homeGrid[homeCoordinates[0]][homeCoordinates[1]] = distance;
-//        distance++;
-//        recentlyMarked.add(new int[] {homeCoordinates[0], homeCoordinates[1]});
-//        int numberOfSentinels = homeGrid.length * homeGrid[0].length;
-//
-//        int numberOfBlocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK).size();
-//
-//        while(numberOfSentinels > numberOfBlocks)
-//        {
-//            List<int[]> temp = new ArrayList<int[]>();
-//
-//            for(int[] coordinates : recentlyMarked)
-//            {
-//                int r = coordinates[0];
-//                int c = coordinates[1];
-//
-//                //check if the tile above exists and does not have a block
-//                //if so, then mark its distance from the goal
-//                if (r > 0)
-//                {
-//                    if (homeGrid[r - 1][c] == -1 && blockGrid[r - 1][c] == 0)
-//                    {
-//                        homeGrid[r - 1][c] = distance;
-//                        numberOfSentinels--;
-//                        temp.add(new int[] {r - 1, c});
-//                    }
-//                }
-//
-//                //check if the tile to the right exists and does not have a block
-//                //if so, then its distance from the goal
-//                if (c < homeGrid[r].length - 1)
-//                {
-//                    if (homeGrid[r][c + 1] == -1 && blockGrid[r][c + 1] == 0)
-//                    {
-//                        homeGrid[r][c + 1] = distance;
-//                        numberOfSentinels--;
-//                        temp.add(new int[] {r, c + 1});
-//                    }
-//                }
-//
-//                //check if the tile below exists and does not have a block
-//                //if so, mark its distance from the goal
-//                if (r < homeGrid.length - 1)
-//                {
-//                    if (homeGrid[r + 1][c] == -1 && blockGrid[r + 1][c] == 0)
-//                    {
-//                        homeGrid[r + 1][c] = distance;
-//                        numberOfSentinels--;
-//                        temp.add(new int[] {r + 1, c});
-//                    }
-//                }
-//
-//                //check if the tile to the left exists and does not have a block
-//                //if so, then mark its distance from the goal
-//                if (c > 0)
-//                {
-//                    if (homeGrid[r][c - 1] == -1 && blockGrid[r][c - 1] == 0)
-//                    {
-//                        homeGrid[r][c - 1] = distance;
-//                        numberOfSentinels--;
-//                        temp.add(new int[] {r, c - 1});
-//                    }
-//                }
-//                //System.out.println(toString(homeGrid));
-//            }
-//            recentlyMarked = temp;
-//            distance++;
-//        }
-//    }
 
     boolean onTile()
     {
@@ -330,4 +385,6 @@ public abstract class GhostControl extends AbstractControl
 
         return xOnTile && yOnTile;
     }
+
+    public abstract void respawn();
 }

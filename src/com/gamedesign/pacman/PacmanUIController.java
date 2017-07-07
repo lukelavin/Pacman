@@ -33,7 +33,7 @@ public class PacmanUIController implements UIController, UpdateEventListener
         title.setEffect(new DropShadow(0.5, 0.5, 1.0, Color.BLACK));
         title.setTextAlignment(TextAlignment.CENTER);
 
-        score.setFont(FXGL.getUIFactory().newFont(24));
+        score.setFont(new Font(24));
 
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.YELLOW);

@@ -2,12 +2,11 @@ package com.gamedesign.pacman.control.ai;
 
 import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.FXGL;
+import com.gamedesign.pacman.EntityFactory;
+import com.gamedesign.pacman.GameState;
 import com.gamedesign.pacman.PacmanApp;
 import com.gamedesign.pacman.control.MoveDirection;
-import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Duration;
+import java.util.ArrayList;
 
 import static com.gamedesign.pacman.Config.*;
 import static com.gamedesign.pacman.PacmanApp.blockGridInitialized;
@@ -20,27 +19,29 @@ public class ClydeControl extends GhostControl
     private final int[] homeCoordinates = {MAP_SIZE_Y - 1, 3};
 
     @Override
+    public void onAdded(Entity entity) {
+        super.onAdded(entity);
+        modes = CLYDE_MODES;
+    }
+
+    @Override
     public void onUpdate(Entity entity, double v)
     {
-        if(blockGridInitialized && !gridsInitialized){
-            blockGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getBlockGrid();
-            playerGrid = playerControl().getPlayerGrid();
-            homeGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid(homeCoordinates[0], homeCoordinates[1]);
+        if (((PacmanApp) FXGL.getApp()).getGameState() == GameState.ACTIVE && ghost != null){
+            if (blockGridInitialized && !gridsInitialized)
+            {
+                blockGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getBlockGrid();
+                playerGrid = playerControl().getPlayerGrid();
+                homeGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid(homeCoordinates[0], homeCoordinates[1]);
 
-            gridsInitialized = true;
+                gridsInitialized = true;
+            }
+
+            framesSinceDirectionChange++;
+
+            if (gridsInitialized)
+                super.onUpdate(entity, v);
         }
-
-        if(textureTimer.elapsed(Duration.millis(75)))
-        {
-            texturei = (texturei + 1) % CLYDE_TEXTURES.length;
-            ghost.getMainViewComponent().setView(new ImageView(new Image("assets/textures/" + CLYDE_TEXTURES[texturei])));
-            textureTimer.capture();
-        }
-
-        framesSinceDirectionChange++;
-
-        if(gridsInitialized)
-            super.onUpdate(entity, v);
     }
 
     @Override
@@ -48,6 +49,49 @@ public class ClydeControl extends GhostControl
     {
         playerGrid = playerControl().getPlayerGrid();
     }
+
+//    public void attack()
+//    {
+//        if(!onTile())
+//        {
+//            ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
+//        }
+//        else
+//        {
+//            int[] upCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.UP.getDY()))),
+//                    (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.UP.getDX())))};
+//            int[] rightCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.RIGHT.getDY()))),
+//                    (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.RIGHT.getDX())))};
+//            int[] leftCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.LEFT.getDY()))),
+//                    (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.LEFT.getDX())))};
+//            int[] downCoordinates = {(int) ((ghost.getPosition().getY() / BLOCK_SIZE + Math.signum(MoveDirection.DOWN.getDY()))),
+//                    (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.DOWN.getDX())))};
+//
+//            ArrayList<MoveDirection> possibleDirections = new ArrayList<MoveDirection>();
+//
+//            if(upCoordinates[0] >= 0 && blockGrid[upCoordinates[0]][upCoordinates[1]] == 0 && moveDirection != MoveDirection.DOWN)
+//                possibleDirections.add(MoveDirection.UP);
+//            if(rightCoordinates[1] <= playerGrid[0].length - 1 && blockGrid[rightCoordinates[0]][rightCoordinates[1]] == 0 && moveDirection != MoveDirection.LEFT)
+//                possibleDirections.add(MoveDirection.RIGHT);
+//            if(leftCoordinates[1] >= 0 && blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0 && moveDirection != MoveDirection.RIGHT)
+//                possibleDirections.add(MoveDirection.LEFT);
+//            if(downCoordinates[0] <= playerGrid.length - 1 && blockGrid[downCoordinates[0]][downCoordinates[1]] == 0 && moveDirection != MoveDirection.UP)
+//                possibleDirections.add(MoveDirection.DOWN);
+//
+//            if(possibleDirections.size() > 0) {
+//                int random = (int) (Math.random() * possibleDirections.size());
+//                moveDirection = possibleDirections.get(random);
+//            }
+//            else
+//            {
+//                moveDirection = moveDirection.inverse();
+//            }
+//
+//            if(moveDirection != null)
+//                ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
+//        }
+//    }
+
 
     @Override
     public void attack()
@@ -76,7 +120,7 @@ public class ClydeControl extends GhostControl
              */
             if (!onTile())
             {
-                ghost.getPositionComponent().translate(v * moveDirection.getDX(), v * moveDirection.getDY());
+                ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
             }
             else
             {
@@ -90,7 +134,7 @@ public class ClydeControl extends GhostControl
                         (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.UP.getDX())))};
 
                 // avoid indexOutOfBounds
-                if (upCoordinates[0] > 0 && moveDirection != MoveDirection.DOWN && blockGrid[upCoordinates[0]][upCoordinates[1]] == 0)
+                if (upCoordinates[0] >= 0 && moveDirection != MoveDirection.DOWN && blockGrid[upCoordinates[0]][upCoordinates[1]] == 0)
                 {
                     int upDistance = playerGrid[upCoordinates[0]][upCoordinates[1]];
                     if (upDistance < min)
@@ -110,7 +154,7 @@ public class ClydeControl extends GhostControl
                         (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.RIGHT.getDX())))};
 
                 // avoid indexOutOfBounds
-                if (rightCoordinates[1] < playerGrid[0].length - 1 && moveDirection != MoveDirection.LEFT && blockGrid[rightCoordinates[0]][rightCoordinates[1]] == 0)
+                if (rightCoordinates[1] <= playerGrid[0].length - 1 && moveDirection != MoveDirection.LEFT && blockGrid[rightCoordinates[0]][rightCoordinates[1]] == 0)
                 {
                     int rightDistance = playerGrid[rightCoordinates[0]][rightCoordinates[1]];
                     if (rightDistance < min)
@@ -130,7 +174,7 @@ public class ClydeControl extends GhostControl
                         (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.LEFT.getDX())))};
 
                 // avoid indexOutOfBounds
-                if (leftCoordinates[1] > 0 && moveDirection != MoveDirection.RIGHT && blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0)
+                if (leftCoordinates[1] >= 0 && moveDirection != MoveDirection.RIGHT && blockGrid[leftCoordinates[0]][leftCoordinates[1]] == 0)
                 {
                     int leftDistance = playerGrid[leftCoordinates[0]][leftCoordinates[1]];
                     if (leftDistance < min)
@@ -150,7 +194,7 @@ public class ClydeControl extends GhostControl
                         (int) ((ghost.getPosition().getX() / BLOCK_SIZE + Math.signum(MoveDirection.DOWN.getDX())))};
 
                 // avoid indexOutOfBounds
-                if (downCoordinates[0] < playerGrid.length - 1 && moveDirection != MoveDirection.UP && blockGrid[downCoordinates[0]][downCoordinates[1]] == 0)
+                if (downCoordinates[0] <= playerGrid.length - 1 && moveDirection != MoveDirection.UP && blockGrid[downCoordinates[0]][downCoordinates[1]] == 0)
                 {
                     int downDistance = playerGrid[downCoordinates[0]][downCoordinates[1]];
                     if (downDistance < min)
@@ -165,17 +209,26 @@ public class ClydeControl extends GhostControl
                 the ghosts were able to do 360 turns within a single pathway. The easiest way to stop this
                 was just to make sure the ghost can't immediately change directions.
                 */
-                if(framesSinceDirectionChange > 3)
+                if(framesSinceDirectionChange > 5)
                 {
-                    if(minDirection != moveDirection)
+                    if(minDirection != null && minDirection != moveDirection) {
                         framesSinceDirectionChange = 0;
-                    moveDirection = minDirection;
+                        moveDirection = minDirection;
+                    }
                 }
 
                 // move in the newly assigned direction
                 if(moveDirection != null)
-                    ghost.getPositionComponent().translate(v * moveDirection.getDX(),v * moveDirection.getDY());
+                    ghost.getPositionComponent().translate(moveDirection.getDX(), moveDirection.getDY());
             }
         }
+    }
+
+    @Override
+    public void respawn()
+    {
+        PacmanApp app = (PacmanApp) FXGL.getApp();
+        app.getGameWorld().addEntity(EntityFactory.newClyde((int) spawnPointComponent().getValue().getX() / BLOCK_SIZE, (int) spawnPointComponent().getValue().getY() / BLOCK_SIZE));
+        app.getGameWorld().removeEntity(ghost);
     }
 }

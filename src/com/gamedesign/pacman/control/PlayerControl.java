@@ -6,8 +6,10 @@ import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.time.LocalTimer;
+import com.gamedesign.pacman.EntityFactory;
 import com.gamedesign.pacman.GameState;
 import com.gamedesign.pacman.PacmanApp;
+import com.gamedesign.pacman.SpawnPointComponent;
 import com.gamedesign.pacman.control.ai.BlinkyControl;
 import com.gamedesign.pacman.control.ai.ClydeControl;
 import com.gamedesign.pacman.control.ai.InkyControl;
@@ -19,7 +21,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.gamedesign.pacman.Config.*;
 import static com.gamedesign.pacman.PacmanApp.blockGridInitialized;
@@ -27,15 +31,15 @@ import static com.gamedesign.pacman.PacmanApp.blockGridInitialized;
 public class PlayerControl extends AbstractControl
 {
     private GameEntity gameEntity;
-    private MoveDirection moveDirection;
-    private MoveDirection prevDirection;
+    private MoveDirection moveDirection, prevDirection;
     private LocalTimer textureTimer;
     private int i;
 
-    private int[][] playerGrid;
-    private int[][] aheadGrid;
+    private int[][] playerGrid, aheadGrid;
 
-    GameState gameState(){ return ((PacmanApp) FXGL.getApp()).getGameState(); }
+    SpawnPointComponent spawnPointComponent(){
+        return gameEntity.getComponentUnsafe(SpawnPointComponent.class);
+    }
 
     private double v;
 
@@ -46,50 +50,112 @@ public class PlayerControl extends AbstractControl
         textureTimer = FXGL.newLocalTimer();
         textureTimer.capture();
 
+        moveDirection = MoveDirection.LEFT;
+
         playerGrid = new int[MAP_SIZE_Y][MAP_SIZE_X];
         aheadGrid = new int[MAP_SIZE_Y][MAP_SIZE_X];
+
+        spawnPointComponent().setSpawn(gameEntity.getPosition());
     }
 
     @Override
     public void onUpdate(Entity entity, double v)
     {
-        this.v = v;
-
-        if(gameState() == GameState.ACTIVE)
+        if(((PacmanApp) FXGL.getApp()).getGameState() == GameState.ACTIVE)
         {
             if (moveDirection != null)
             {
                 move();
-            }
-            else // if Pacman is stopped, just repeatedly capture to stop animating
+            } else // if Pacman is stopped, just set the texture to the default and repeatedly capture to stop animating
             {
+                i = 0;
+                gameEntity.getMainViewComponent().setView(new ImageView("assets/textures/" + PACMAN_TEXTURES[i]));
                 textureTimer.capture();
             }
 
-            if(blockGridInitialized && onTile())
+            if (blockGridInitialized && onTile())
                 updateGrids();
 
             // every 50 ms, if Pacman is moving, switch to the next texture
             // 50 is arbitrary, could and probably should be derived from speed in the future
-            if(textureTimer.elapsed(Duration.millis(50))){
-                i = (i + 1) % (PACMAN_TEXTURES.length);
+            if (textureTimer.elapsed(Duration.millis(100)))
+            {
+                i = (i + 1) % PACMAN_TEXTURES.length;
 
                 gameEntity.getMainViewComponent().setView(new ImageView("assets/textures/" + PACMAN_TEXTURES[i]));
                 handleTexture(); // make sure to update the rotation with the new view
                 textureTimer.capture();
             }
+
+            if (!getSide().isEmpty())
+                gameEntity.setPosition(getPortal(getSide()).getPosition().add(PACMAN_OFFSET));
+        }
+    }
+
+    private String getSide(){
+        if(gameEntity.getX() <= -gameEntity.getWidth())
+            return "Left";
+        else if(gameEntity.getX() >= MAP_SIZE_X * BLOCK_SIZE)
+            return "Right";
+        else if(gameEntity.getY() <= -gameEntity.getHeight())
+            return "Up";
+        else if(gameEntity.getY() >= MAP_SIZE_Y * BLOCK_SIZE)
+            return "Down";
+        return "";
+    }
+
+    private List<GameEntity> portals(){
+        return FXGL.getApp()
+                .getGameWorld()
+                .getEntitiesByType(EntityType.TELEPORTER)
+                .stream()
+                .map(e -> (GameEntity) e)
+                .collect(Collectors.toList());
+    }
+
+    private GameEntity getPortal(String side){
+        HashMap<String, GameEntity> portalMap = new HashMap();
+
+        for(GameEntity e : portals())
+        {
+            if(e.getPositionComponent().getX() == 0)
+                portalMap.put("Left", e);
+            else if(e.getPositionComponent().getX() == (MAP_SIZE_X - 1) * BLOCK_SIZE)
+                portalMap.put("Right", e);
+            else if(e.getPositionComponent().getY() == 0)
+                portalMap.put("Up", e);
+            else if(e.getPositionComponent().getY() == (MAP_SIZE_Y - 1) * BLOCK_SIZE)
+                portalMap.put("Down", e);
+            else{System.out.println(e.getX() + "   " + e.getY());}
         }
 
+        switch (side)
+        {
+            case "Left" : return portalMap.get("Right");
+            case "Right" : return portalMap.get("Left");
+            case "Up" : return portalMap.get("Down");
+            case "Down" : return portalMap.get("Up");
+        }
+
+        return null;
     }
 
     private void updateGrids()
     {
-        playerGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid((int) (nearestTile().getY() / BLOCK_SIZE), (int) (nearestTile().getX() / BLOCK_SIZE));
+        // don't update the grid when you go off screen for teleporting
+        if((int) (nearestTile().getY() / BLOCK_SIZE) >= 0 && (int) (nearestTile().getY() / BLOCK_SIZE) < MAP_SIZE_Y  &&
+                (int) (nearestTile().getX() / BLOCK_SIZE) >= 0 && (int) (nearestTile().getX() / BLOCK_SIZE) < MAP_SIZE_X)
+
+        { // if you are in the map, get the pre-generated A* grid corresponding to the current location
+            playerGrid = ((PacmanApp) FXGL.getApp()).getGridStorage()
+                    .getGrid((int) (nearestTile().getY() / BLOCK_SIZE), (int) (nearestTile().getX() / BLOCK_SIZE));
+        }
 
         if(prevDirection != null &&
                 nearestTile().getY() / BLOCK_SIZE > 1 && nearestTile().getY() / BLOCK_SIZE < aheadGrid.length - 3 &&
                 nearestTile().getX() / BLOCK_SIZE > 1 && nearestTile().getX() / BLOCK_SIZE < aheadGrid[0].length - 3)
         {
+            // if you're moving, get the pre-generated A* grid corresponding to the position 2 blocks ahead of the current location
             aheadGrid = ((PacmanApp) FXGL.getApp()).getGridStorage().getGrid((int) (nearestTile().getY() + Math.signum(prevDirection.getDY()) * BLOCK_SIZE * 2) / BLOCK_SIZE,
                     (int) (nearestTile().getX() + Math.signum(prevDirection.getDX()) * BLOCK_SIZE * 2) / BLOCK_SIZE);
         }
@@ -98,176 +164,14 @@ public class PlayerControl extends AbstractControl
 
         for(Entity e : ghosts)
         {
-            if(((GameEntity) e).getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.BLINKY)
-                ((GameEntity) e).getControlUnsafe(BlinkyControl.class).pushGridUpdate();
-            else if(((GameEntity) e).getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.PINKY)
-                ((GameEntity) e).getControlUnsafe(PinkyControl.class).pushGridUpdate();
-            else if(((GameEntity) e).getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.INKY)
-                ((GameEntity) e).getControlUnsafe(InkyControl.class).pushGridUpdate();
-            else if(((GameEntity) e).getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.CLYDE)
-            ((GameEntity) e).getControlUnsafe(ClydeControl.class).pushGridUpdate();
-        }
-    }
-
-//    public void updatePlayerGrid()
-//    {
-//        // fill the array with a sentinel value
-//        for (int i = 0; i < playerGrid.length; i++)
-//            for (int j = 0; j < playerGrid[i].length; j++)
-//                playerGrid[i][j] = -1;
-//
-//        int distance = 0;
-//
-//        /*
-//        Mark the goal point as distance 0 to start the path from there.
-//        Also, decrement numberOfSentinels accordingly.
-//         */
-//
-//        playerGrid[(int) (nearestTile().getY() / BLOCK_SIZE)][(int) (nearestTile().getX() / BLOCK_SIZE)] = 0;
-//        int numberOfSentinels = playerGrid.length * playerGrid[0].length - 1;
-//
-//        int numberOfBlocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK).size();
-//
-//        while (numberOfSentinels > numberOfBlocks)
-//        {
-//            for (int r = 0; r < playerGrid.length; r++)
-//            {
-//                for (int c = 0; c < playerGrid[r].length; c++)
-//                {
-//                    //check and mark the blocks around the most recently marked blocks
-//                    if (playerGrid[r][c] == distance)
-//                    {
-//                        //check if the tile above exists and does not have a block
-//                        //if so, then mark its distance from the goal
-//                        if (r > 0)
-//                        {
-//                            if (playerGrid[r - 1][c] == -1 && !hasBlock(new Point2D(c * BLOCK_SIZE, (r - 1) * BLOCK_SIZE)))
-//                            {
-//                                playerGrid[r - 1][c] = distance + 1;
-//                                numberOfSentinels--;
-//                            }
-//                        }
-//
-//                        //check if the tile to the right exists and does not have a block
-//                        //if so, then its distance from the goal
-//                        if (c < playerGrid[r].length - 1)
-//                        {
-//                            if (playerGrid[r][c + 1] == -1 && !hasBlock(new Point2D((c + 1) * BLOCK_SIZE, r * BLOCK_SIZE)))
-//                            {
-//                                playerGrid[r][c + 1] = distance + 1;
-//                                numberOfSentinels--;
-//                            }
-//                        }
-//
-//                        //check if the tile below exists and does not have a block
-//                        //if so, mark its distance from the goal
-//                        if (r < playerGrid.length - 1)
-//                        {
-//                            if (playerGrid[r + 1][c] == -1 && !hasBlock(new Point2D(c * BLOCK_SIZE, (r + 1) * BLOCK_SIZE)))
-//                            {
-//                                playerGrid[r + 1][c] = distance + 1;
-//                                numberOfSentinels--;
-//                            }
-//                        }
-//
-//                        //check if the tile to the left exists and does not have a block
-//                        //if so, then mark its distance from the goal
-//                        if (c > 0)
-//                        {
-//                            if (playerGrid[r][c - 1] == -1 && !hasBlock(new Point2D((c - 1) * BLOCK_SIZE, r * BLOCK_SIZE)))
-//                            {
-//                                playerGrid[r][c - 1] = distance + 1;
-//                                numberOfSentinels--;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            distance++;
-//        }
-//    }
-
-    public void updateAheadGrid()
-    {
-        // fill the array with a sentinel value
-        for (int i = 0; i < aheadGrid.length; i++)
-            for (int j = 0; j < aheadGrid[i].length; j++)
-                aheadGrid[i][j] = -1;
-
-        int distance = 0;
-
-        /*
-        Mark the goal point as distance 0 to start the path from there.
-        Also, decrement numberOfSentinels accordingly.
-         */
-        if(prevDirection != null &&
-                nearestTile().getY() / BLOCK_SIZE > 1 && nearestTile().getY() / BLOCK_SIZE < aheadGrid.length - 3 &&
-                nearestTile().getX() / BLOCK_SIZE > 1 && nearestTile().getX() / BLOCK_SIZE < aheadGrid[0].length - 3)
-            aheadGrid[(int) (nearestTile().getY() + Math.signum(prevDirection.getDY()) * BLOCK_SIZE * 2) / BLOCK_SIZE]
-                    [(int) (nearestTile().getX() + Math.signum(prevDirection.getDX()) * BLOCK_SIZE * 2) / BLOCK_SIZE ] = 0;
-        else
-            aheadGrid[(int) (nearestTile().getY() / BLOCK_SIZE)][(int) (nearestTile().getX() / BLOCK_SIZE)] = 0;
-
-        int numberOfSentinels = aheadGrid.length * aheadGrid[0].length - 1;
-
-        int numberOfBlocks = FXGL.getApp().getGameWorld().getEntitiesByType(EntityType.BLOCK).size();
-
-        while (numberOfSentinels > numberOfBlocks)
-        {
-            for (int r = 0; r < aheadGrid.length; r++)
-            {
-                for (int c = 0; c < aheadGrid[r].length; c++)
-                {
-                    //check and mark the blocks around the most recently marked blocks
-                    if (aheadGrid[r][c] == distance)
-                    {
-                        //check if the tile above exists and does not have a block
-                        //if so, then mark its distance from the goal
-                        if (r > 0)
-                        {
-                            if (aheadGrid[r - 1][c] == -1 && !hasBlock(new Point2D(c * BLOCK_SIZE, (r - 1) * BLOCK_SIZE)))
-                            {
-                                aheadGrid[r - 1][c] = distance + 1;
-                                numberOfSentinels--;
-                            }
-                        }
-
-                        //check if the tile to the right exists and does not have a block
-                        //if so, then its distance from the goal
-                        if (c < aheadGrid[r].length - 1)
-                        {
-                            if (aheadGrid[r][c + 1] == -1 && !hasBlock(new Point2D((c + 1) * BLOCK_SIZE, r * BLOCK_SIZE)))
-                            {
-                                aheadGrid[r][c + 1] = distance + 1;
-                                numberOfSentinels--;
-                            }
-                        }
-
-                        //check if the tile below exists and does not have a block
-                        //if so, mark its distance from the goal
-                        if (r < aheadGrid.length - 1)
-                        {
-                            if (aheadGrid[r + 1][c] == -1 && !hasBlock(new Point2D(c * BLOCK_SIZE, (r + 1) * BLOCK_SIZE)))
-                            {
-                                aheadGrid[r + 1][c] = distance + 1;
-                                numberOfSentinels--;
-                            }
-                        }
-
-                        //check if the tile to the left exists and does not have a block
-                        //if so, then mark its distance from the goal
-                        if (c > 0)
-                        {
-                            if (aheadGrid[r][c - 1] == -1 && !hasBlock(new Point2D((c - 1) * BLOCK_SIZE, r * BLOCK_SIZE)))
-                            {
-                                aheadGrid[r][c - 1] = distance + 1;
-                                numberOfSentinels--;
-                            }
-                        }
-                    }
-                }
-            }
-            distance++;
+            if(e.getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.BLINKY)
+                e.getControlUnsafe(BlinkyControl.class).pushGridUpdate();
+            else if(e.getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.PINKY)
+                e.getControlUnsafe(PinkyControl.class).pushGridUpdate();
+            else if(e.getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.INKY)
+                e.getControlUnsafe(InkyControl.class).pushGridUpdate();
+            else if(e.getComponentUnsafe(GhostTypeComponent.class).getValue() == GhostType.CLYDE)
+                e.getControlUnsafe(ClydeControl.class).pushGridUpdate();
         }
     }
 
@@ -348,21 +252,21 @@ public class PlayerControl extends AbstractControl
                 // if the space in the new direction is open, move and then set prevDirection to the new direction
                 if (!hasBlock(gameEntity.getPosition().add(BLOCK_SIZE * Math.signum(dx), BLOCK_SIZE * Math.signum(dy))))
                 {
-                    gameEntity.getPositionComponent().translate(v * dx, v * dy);
+                    gameEntity.getPositionComponent().translate(dx, dy);
                     prevDirection = moveDirection;
                     handleTexture();
                 }
                 else // if the space in the new direction is blocked, try and move in the previous direction
                 {
                     if(!hasBlock(gameEntity.getPosition().add(BLOCK_SIZE * Math.signum(prevdx), BLOCK_SIZE * Math.signum(prevdy))))
-                        gameEntity.getPositionComponent().translate(v * prevdx, v * prevdy);
+                        gameEntity.getPositionComponent().translate(prevdx, prevdy);
                     else // if you can't move in the previous direction, stop movement
                         stopMovement();
                 }
             }
             else // keep moving in the same direction until you reach a tile, so you can check the new direction again
             {
-                gameEntity.getPositionComponent().translate(v * prevdx, v * prevdy);
+                gameEntity.getPositionComponent().translate(prevdx, prevdy);
             }
         }
         else // if moveDirection == prevDirection, you only need to check if blocks are in one direction
@@ -371,23 +275,7 @@ public class PlayerControl extends AbstractControl
             if(onTile() && hasBlock(gameEntity.getPosition().add(BLOCK_SIZE * Math.signum(dx), BLOCK_SIZE * Math.signum(dy))))
                 stopMovement();
             else // if you can move, keep moving
-                gameEntity.getPositionComponent().translate(v * dx, v * dy);
-        }
-
-        Point2D leftTeleport = new Point2D(0, 9 * BLOCK_SIZE);
-        Point2D rightTeleport = new Point2D(18 * BLOCK_SIZE, 9 * BLOCK_SIZE);
-
-        if(((int) gameEntity.getPosition().getX() / BLOCK_SIZE * BLOCK_SIZE == leftTeleport.getX()) &&
-            (int) gameEntity.getPosition().getY() / BLOCK_SIZE * BLOCK_SIZE == leftTeleport.getY() &&
-                (moveDirection == MoveDirection.LEFT || prevDirection == MoveDirection.LEFT))
-        {
-            gameEntity.getPositionComponent().setValue(rightTeleport.add(5, 5));
-        }
-        else if(((int) gameEntity.getPosition().getX() / BLOCK_SIZE * BLOCK_SIZE == rightTeleport.getX()) &&
-                (int) gameEntity.getPosition().getY() / BLOCK_SIZE * BLOCK_SIZE == rightTeleport.getY() &&
-                (moveDirection == MoveDirection.RIGHT || prevDirection == MoveDirection.RIGHT))
-        {
-            gameEntity.getPositionComponent().setValue(leftTeleport.add(5, 5));
+                gameEntity.getPositionComponent().translate(dx, dy);
         }
     }
 
@@ -477,6 +365,13 @@ public class PlayerControl extends AbstractControl
     public int[][] getPlayerGrid(){ return playerGrid; }
     public int[][] getAheadGrid(){ return aheadGrid; }
 
+    public void respawn()
+    {
+        PacmanApp app = (PacmanApp) FXGL.getApp();
+        app.getGameWorld().addEntity(EntityFactory.newPlayer((int) spawnPointComponent().getValue().getX() / BLOCK_SIZE, (int) spawnPointComponent().getValue().getY() / BLOCK_SIZE));
+        app.getGameWorld().removeEntity(gameEntity);
+    }
+
 
     public static String toString(int[][] arr)
     {
@@ -495,11 +390,3 @@ public class PlayerControl extends AbstractControl
         return output;
     }
 }
-
-
-
-
-
-
-
-
