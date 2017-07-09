@@ -76,7 +76,7 @@ public class PacmanApp extends GameApplication
         gameSettings.setWidth(MAP_SIZE_X * BLOCK_SIZE + UI_SIZE);
         gameSettings.setHeight(MAP_SIZE_Y * BLOCK_SIZE);
         gameSettings.setTitle("Pacman");
-        gameSettings.setVersion("0.8");
+        gameSettings.setVersion("1.0");
 
         gameSettings.setFullScreen(false);
         gameSettings.setIntroEnabled(false);
@@ -84,7 +84,7 @@ public class PacmanApp extends GameApplication
         gameSettings.setProfilingEnabled(false);    // disables FPS
         gameSettings.setCloseConfirmation(false);
 
-        gameSettings.setApplicationMode(ApplicationMode.DEVELOPER);
+        gameSettings.setApplicationMode(ApplicationMode.RELEASE);
     }
 
     @Override
