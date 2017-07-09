@@ -27,6 +27,7 @@ public class PlayerPowerPelletHandler extends CollisionHandler
 
         powerPellet.removeFromWorld();
         app.decrementPowerPellets();
+        app.signalEating();
         app.checkLevelAdvance();
     }
 }

@@ -39,6 +39,8 @@ public class PlayerGhostHandler extends CollisionHandler
             app.getGameWorld().addEntity(EntityFactory.newPopUp("+" + scoreToAdd, Duration.millis(500)));
             app.setScore(app.getScore() + scoreToAdd);
             app.setGhostMultiplier(app.getGhostMultiplier() + 1);
+
+            app.getAudioPlayer().playSound("pacman_eatghost.wav");
         }
         else
         {

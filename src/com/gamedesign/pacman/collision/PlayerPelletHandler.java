@@ -25,6 +25,7 @@ public class PlayerPelletHandler extends CollisionHandler
 
         pellet.removeFromWorld();
         app.decrementPellets();
+        app.signalEating();
         app.checkLevelAdvance();
     }
 }

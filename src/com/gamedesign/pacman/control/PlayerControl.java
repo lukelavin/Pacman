@@ -83,8 +83,7 @@ public class PlayerControl extends AbstractControl
                 updateGrids();
 
             // every 50 ms, if Pacman is moving, switch to the next texture
-            // 50 is arbitrary, could and probably should be derived from speed in the future
-            if (textureTimer.elapsed(Duration.millis(100)))
+            if (textureTimer.elapsed(Duration.millis(60)))
             {
                 i = (i + 1) % PACMAN_TEXTURES.length;
 

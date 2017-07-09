@@ -5,6 +5,7 @@ import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.app.GameApplication;
+import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.entity.Entities;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.entity.RenderLayer;
@@ -32,6 +33,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -149,6 +151,9 @@ public class PacmanApp extends GameApplication
 
     public static boolean blockGridInitialized;
     public static boolean gridsInitialized;
+    private boolean eating;
+    private LocalTimer eatingTimer;
+    private LocalTimer eatingSoundTimer;
 
     @Override
     protected void initGame()
@@ -180,6 +185,10 @@ public class PacmanApp extends GameApplication
         Level level = parser.parse("levels/level.txt");
         //Level level = parser.parse("levels/customLevel0.txt");
         getGameWorld().setLevel(level);
+
+        eating = false;
+        eatingTimer = FXGL.newLocalTimer();
+        eatingSoundTimer = FXGL.newLocalTimer();
 
         gridsInitialized = false;
         blockGridInitialized = false;
@@ -337,6 +346,8 @@ public class PacmanApp extends GameApplication
             getGameScene().removeUINode(lives.get(lives.size() - 1));
             lives.remove(lives.size() - 1);
         }
+
+        getAudioPlayer().playSound("pacman_death.wav");
     }
 
     private int pausedI = 0;
@@ -346,11 +357,26 @@ public class PacmanApp extends GameApplication
     @Override
     protected void onUpdate(double v)
     {
+        System.out.println(eating);
         if(gameState == GameState.ACTIVE)
         {
             if(energizedTimer != null && energizedTimer.elapsed(Duration.seconds(6)))
             {
                 playerControl().setSpeed(1);
+            }
+
+            if(eatingTimer.elapsed(Duration.millis(300)))
+            {
+                eating = false;
+            }
+
+            if(eating)
+            {
+                if(eatingSoundTimer.elapsed(Duration.millis(314)))
+                {
+                    getAudioPlayer().playSound("pacman_chomp2.wav");
+                    eatingSoundTimer.capture();
+                }
             }
         }
 
@@ -406,6 +432,12 @@ public class PacmanApp extends GameApplication
 
         if(gameState == GameState.OVER)
             gameOver();
+    }
+
+    public void signalEating()
+    {
+        eating = true;
+        eatingTimer.capture();
     }
 
     private int pellets;

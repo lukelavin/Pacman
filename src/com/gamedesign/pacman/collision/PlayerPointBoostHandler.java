@@ -23,6 +23,8 @@ public class PlayerPointBoostHandler extends CollisionHandler
         app.setScore(app.getScore() + 500);
         app.getGameWorld().addEntity(EntityFactory.newPopUp("+500", Duration.millis(500)));
 
+        app.getAudioPlayer().playSound("pacman_eatfruit.wav");
+
         pointBoost.removeFromWorld();
     }
 }

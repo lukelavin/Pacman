@@ -2,82 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9e23d3c-4ecc-4041-bbd5-5e455b033f4d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/component/EnergizedComponent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PointBoostSpawnControl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PopUpControl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/SetPopUpControl.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 21-21-39-284.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 21-34-15-409.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-18-14-657.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-19-16-147.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-20-20-246.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-24-58-181.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-35-10-242.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-39-18-972.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-07 Feb 2017 21-53-55-540.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-07 Feb 2017 21-54-15-780.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-25-40-693.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-26-12-548.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-26-37-367.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-27-41-102.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-28-57-551.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-20 Feb 2017 16-37-49-851.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-20 Feb 2017 16-40-59-393.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@21.21.41-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@21.34.16-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@22.20.21-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@22.24.59-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@22.35.11-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@22.39.20-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-07-Feb-2017@21.53.56-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-07-Feb-2017@21.54.16-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.25.41-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.26.13-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.26.38-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.27.42-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.28.58-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-20-Feb-2017@16.37.53-1.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-20-Feb-2017@16.41.00-1.log" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/SpawnPointComponent.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/component/SpawnPointComponent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/assets/textures/cherry.png" afterPath="$PROJECT_DIR$/out/production/Pacman/assets/textures/cherry.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory$1.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory$2.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-09 Jul 2017 15-34-15-261.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-09 Jul 2017 15-35-36-265.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-09 Jul 2017 15-38-58-547.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-09 Jul 2017 15-39-14-391.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-09 Jul 2017 15-40-39-790.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-09-Jul-2017@15.34.16-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-09-Jul-2017@15.35.37-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-09-Jul-2017@15.38.59-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-09-Jul-2017@15.39.15-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-09-Jul-2017@15.40.40-1.log" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$1.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$2.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$3.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$4.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$5.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$6.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$6.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanUIController.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanUIController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerGhostHandler.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerGhostHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerPelletHandler.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerPelletHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/PlayerControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/PlayerControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/BlinkyControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/BlinkyControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/ClydeControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/ClydeControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/GhostControl$1.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/GhostControl$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/GhostControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/GhostControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/InkyControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/InkyControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/PinkyControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/PinkyControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/type/EntityType.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/type/EntityType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/textures/cherry.png" afterPath="$PROJECT_DIR$/src/assets/textures/cherry.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/Game.log" afterPath="$PROJECT_DIR$/logs/Game.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/assets/text/levels/level.txt" afterPath="$PROJECT_DIR$/out/production/Pacman/assets/text/levels/level.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/assets/ui/pacman_ui.fxml" afterPath="$PROJECT_DIR$/out/production/Pacman/assets/ui/pacman_ui.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/text/levels/level.txt" afterPath="$PROJECT_DIR$/src/assets/text/levels/level.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml" afterPath="$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java" />
     </list>
     <ignored path="Pacman.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -101,13 +54,25 @@
       <file leaf-file-name="PacmanApp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+            <state relative-caret-position="561">
+              <caret line="349" column="53" lean-forward="false" selection-start-line="349" selection-start-column="53" selection-end-line="349" selection-end-column="53" />
               <folding>
-                <element signature="e#6331#6332#0" expanded="true" />
-                <element signature="e#6374#6375#0" expanded="true" />
-                <element signature="e#6442#6443#0" expanded="true" />
-                <element signature="e#6482#6483#0" expanded="true" />
+                <element signature="e#6627#6628#0" expanded="true" />
+                <element signature="e#6670#6671#0" expanded="true" />
+                <element signature="e#6738#6739#0" expanded="true" />
+                <element signature="e#6778#6779#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerPointBoostHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="25" column="59" lean-forward="false" selection-start-line="25" selection-start-column="59" selection-end-line="25" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -136,52 +101,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerPowerPelletHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PointBoostSpawnControl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PointBoostSpawnControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GhostControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="93" column="72" lean-forward="false" selection-start-line="93" selection-start-column="72" selection-end-line="93" selection-end-column="72" />
-              <folding>
-                <marker date="1499627970605" expanded="false" signature="50:292" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PlayerControl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3807">
-              <caret line="138" column="16" lean-forward="false" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+            <state relative-caret-position="239">
+              <caret line="85" column="55" lean-forward="false" selection-start-line="85" selection-start-column="55" selection-end-line="85" selection-end-column="55" />
               <folding>
-                <marker date="1499629306796" expanded="false" signature="9428:9443" ph=" { " />
-                <marker date="1499629306796" expanded="false" signature="9456:9462" ph=" }" />
-                <marker date="1499629306796" expanded="false" signature="9502:9517" ph=" { " />
-                <marker date="1499629306796" expanded="false" signature="9536:9542" ph=" }" />
+                <marker date="1499633126112" expanded="false" signature="9333:9348" ph=" { " />
+                <marker date="1499633126112" expanded="false" signature="9361:9367" ph=" }" />
+                <marker date="1499633126112" expanded="false" signature="9407:9422" ph=" { " />
+                <marker date="1499633126112" expanded="false" signature="9441:9447" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -191,29 +120,17 @@
         <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="392">
-              <caret line="232" column="5" lean-forward="true" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
+              <caret line="232" column="5" lean-forward="false" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SetPopUpControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/SetPopUpControl.java">
+      <file leaf-file-name="PlayerGhostHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="44" column="5" lean-forward="false" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PopUpControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PopUpControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="58" column="41" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+            <state relative-caret-position="461">
+              <caret line="34" column="49" lean-forward="false" selection-start-line="34" selection-start-column="49" selection-end-line="34" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -296,20 +213,20 @@
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/component/SpawnPointComponent.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/component/EnergizedComponent.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PopUpControl.java" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PointBoostSpawnControl.java" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java" />
         <option value="$PROJECT_DIR$/src/assets/text/levels/level.txt" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/SetPopUpControl.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java" />
         <option value="$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java" />
       </list>
     </option>
   </component>
@@ -553,12 +470,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fxgl-0.2.9-uber.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sounds" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -979,10 +900,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#6331#6332#0" expanded="true" />
-            <element signature="e#6374#6375#0" expanded="true" />
-            <element signature="e#6442#6443#0" expanded="true" />
-            <element signature="e#6482#6483#0" expanded="true" />
+            <element signature="e#6627#6628#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6738#6739#0" expanded="true" />
+            <element signature="e#6778#6779#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1168,16 +1089,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="39" column="25" lean-forward="false" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/component/SpawnPointComponent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1234,26 +1145,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="91" lean-forward="true" selection-start-line="23" selection-start-column="91" selection-end-line="23" selection-end-column="91" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1267,7 +1158,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PopUpControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
-          <caret line="58" column="41" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <caret line="58" column="41" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1287,18 +1178,8 @@
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
-          <caret line="232" column="5" lean-forward="true" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
+          <caret line="232" column="5" lean-forward="false" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1321,28 +1202,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java">
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        <state relative-caret-position="461">
+          <caret line="34" column="49" lean-forward="false" selection-start-line="34" selection-start-column="49" selection-end-line="34" selection-end-column="49" />
           <folding>
-            <element signature="e#6331#6332#0" expanded="true" />
-            <element signature="e#6374#6375#0" expanded="true" />
-            <element signature="e#6442#6443#0" expanded="true" />
-            <element signature="e#6482#6483#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="27" column="27" lean-forward="false" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3807">
-          <caret line="138" column="16" lean-forward="false" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+        <state relative-caret-position="239">
+          <caret line="85" column="55" lean-forward="false" selection-start-line="85" selection-start-column="55" selection-end-line="85" selection-end-column="55" />
           <folding>
-            <marker date="1499629306796" expanded="false" signature="9428:9443" ph=" { " />
-            <marker date="1499629306796" expanded="false" signature="9456:9462" ph=" }" />
-            <marker date="1499629306796" expanded="false" signature="9502:9517" ph=" { " />
-            <marker date="1499629306796" expanded="false" signature="9536:9542" ph=" }" />
+            <marker date="1499633126112" expanded="false" signature="9333:9348" ph=" { " />
+            <marker date="1499633126112" expanded="false" signature="9361:9367" ph=" }" />
+            <marker date="1499633126112" expanded="false" signature="9407:9422" ph=" { " />
+            <marker date="1499633126112" expanded="false" signature="9441:9447" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -1350,7 +1238,40 @@
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PointBoostSpawnControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <caret line="25" column="5" lean-forward="false" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="29" column="11" lean-forward="false" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="349" column="53" lean-forward="false" selection-start-line="349" selection-start-column="53" selection-end-line="349" selection-end-column="53" />
+          <folding>
+            <element signature="e#6627#6628#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6738#6739#0" expanded="true" />
+            <element signature="e#6778#6779#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="25" column="59" lean-forward="false" selection-start-line="25" selection-start-column="59" selection-end-line="25" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
