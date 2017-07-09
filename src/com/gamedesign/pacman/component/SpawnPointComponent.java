@@ -1,4 +1,4 @@
-package com.gamedesign.pacman;
+package com.gamedesign.pacman.component;
 
 import com.almasb.ents.component.ObjectComponent;
 import javafx.geometry.Point2D;

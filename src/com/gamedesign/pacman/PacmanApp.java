@@ -1,5 +1,6 @@
 package com.gamedesign.pacman;
 
+import com.almasb.ents.Control;
 import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.FXGL;
@@ -7,15 +8,19 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.Entities;
 import com.almasb.fxgl.entity.GameEntity;
 import com.almasb.fxgl.entity.RenderLayer;
+import com.almasb.fxgl.entity.component.MainViewComponent;
 import com.almasb.fxgl.gameplay.Level;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.parser.TextLevelParser;
 import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.settings.GameSettings;
+import com.almasb.fxgl.time.LocalTimer;
 import com.almasb.fxgl.ui.UI;
 import com.gamedesign.pacman.collision.PlayerGhostHandler;
 import com.gamedesign.pacman.collision.PlayerPelletHandler;
+import com.gamedesign.pacman.collision.PlayerPointBoostHandler;
 import com.gamedesign.pacman.collision.PlayerPowerPelletHandler;
+import com.gamedesign.pacman.component.EnergizedComponent;
 import com.gamedesign.pacman.control.PlayerControl;
 import com.gamedesign.pacman.control.ai.*;
 import com.gamedesign.pacman.type.EntityType;
@@ -26,11 +31,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,8 +62,11 @@ public class PacmanApp extends GameApplication
     }
 
     private IntegerProperty score;
+    private IntegerProperty levelNum;
 
     private AStarGridStorage gridStorage;
+
+    private boolean levelEnded;
 
     @Override
     protected void initSettings(GameSettings gameSettings)
@@ -108,6 +120,15 @@ public class PacmanApp extends GameApplication
                 playerControl().right();
             }
         }, RIGHT_KEY);
+
+//        getInput().addAction(new UserAction("DEVCLEAR")
+//        {
+//            @Override
+//            protected void onActionBegin()
+//            {
+//                devLevelClear();
+//            }
+//        }, KeyCode.C);
     }
 
     @Override
@@ -132,10 +153,17 @@ public class PacmanApp extends GameApplication
     @Override
     protected void initGame()
     {
+        initLevel();
+
+        levelNum = new SimpleIntegerProperty();
+        levelNum.set(1);
+        score = new SimpleIntegerProperty();
+    }
+
+    public void initLevel()
+    {
         gameState = GameState.LOADING;
-
-        getGameWorld().addEntity(EntityFactory.newPlayer(2, 2));
-
+        levelEnded = false;
         TextLevelParser parser = new TextLevelParser();
         parser.setEmptyChar(' ');
         parser.addEntityProducer('P', EntityFactory::newPlayer);
@@ -147,11 +175,13 @@ public class PacmanApp extends GameApplication
         parser.addEntityProducer('p', EntityFactory::newPinky);
         parser.addEntityProducer('i', EntityFactory::newInky);
         parser.addEntityProducer('c', EntityFactory::newClyde);
+        parser.addEntityProducer('+', EntityFactory::newPointBoostSpawn);
 
         Level level = parser.parse("levels/level.txt");
         //Level level = parser.parse("levels/customLevel0.txt");
         getGameWorld().setLevel(level);
 
+        gridsInitialized = false;
         blockGridInitialized = false;
 
         gridStorage = new AStarGridStorage();
@@ -161,9 +191,20 @@ public class PacmanApp extends GameApplication
                 .viewFromNode(new Rectangle(getWidth(), getHeight(), Color.BLACK)) //use the height and width of CURRENT SCREEN
                 .buildAndAttach(getGameWorld());
 
-        background.setRenderLayer(RenderLayer.BACKGROUND);
+        background.setRenderLayer(new RenderLayer()
+        {
+            @Override
+            public String name()
+            {
+                return null;
+            }
 
-        score = new SimpleIntegerProperty();
+            @Override
+            public int index()
+            {
+                return 0;
+            }
+        });
     }
 
     public void respawn()
@@ -214,6 +255,7 @@ public class PacmanApp extends GameApplication
         getPhysicsWorld().addCollisionHandler(new PlayerPelletHandler(EntityType.PLAYER, EntityType.PELLET));
         getPhysicsWorld().addCollisionHandler(new PlayerGhostHandler(EntityType.PLAYER, EntityType.ENEMY));
         getPhysicsWorld().addCollisionHandler(new PlayerPowerPelletHandler(EntityType.PLAYER, EntityType.POWERPELLET));
+        getPhysicsWorld().addCollisionHandler(new PlayerPointBoostHandler(EntityType.PLAYER, EntityType.BOOST));
     }
 
     private ArrayList<Circle> lives;
@@ -230,6 +272,10 @@ public class PacmanApp extends GameApplication
         pacmanUIController.getScore()
                 .textProperty()
                 .bind(score.asString("Score: %d"));
+
+        pacmanUIController.getLevelNum()
+                .textProperty()
+                .bind(levelNum.asString("Level %d"));
 
         getGameScene().addUI(ui);
 
@@ -264,10 +310,22 @@ public class PacmanApp extends GameApplication
         this.ghostMultiplier = ghostMultiplier;
     }
 
+    private LocalTimer energizedTimer;
     public void energizePlayer()
     {
-        playerControl().energize();
+        energizedTimer = FXGL.newLocalTimer();
+        energizedTimer.capture();
+        playerControl().setSpeed(1.2);
         ghostMultiplier = 0;
+        List<Entity> ghosts = getGameWorld().getEntitiesByType(EntityType.ENEMY);
+        for(Entity e : ghosts)
+        {
+            for(Control c : e.getControls())
+            {
+                if(c instanceof GhostControl)
+                    ((GhostControl) c).energize();
+            }
+        }
     }
 
     public void loseLife()
@@ -281,15 +339,27 @@ public class PacmanApp extends GameApplication
         }
     }
 
-    int pausedI = 0;
+    private int pausedI = 0;
+    private int levelEndedI = 0;
+    private Label loading;
 
     @Override
     protected void onUpdate(double v)
     {
+        if(gameState == GameState.ACTIVE)
+        {
+            if(energizedTimer != null && energizedTimer.elapsed(Duration.seconds(6)))
+            {
+                playerControl().setSpeed(1);
+            }
+        }
+
         if(!blockGridInitialized)
         {
             gridStorage.makeBlockGrid();
             blockGridInitialized = true;
+            powerPellets = getGameWorld().getEntitiesByType(EntityType.POWERPELLET).size();
+            pellets = getGameWorld().getEntitiesByType(EntityType.PELLET).size();
         }
         else if(!gridsInitialized)
         {
@@ -308,8 +378,46 @@ public class PacmanApp extends GameApplication
             }
         }
 
+        if(levelEnded)
+        {
+            if(loading == null)
+            {
+                getGameScene().addUINode(new Rectangle(getWidth(), getHeight(), Color.BLACK));
+                loading = new Label("Loading...");
+                loading.setTextFill(Color.WHITE);
+                loading.setFont(new Font(36));
+                loading.setTranslateX(getWidth() / 2 - 60);
+                loading.setTranslateY(getHeight() / 2 - 18);
+                getGameScene().addUINode(loading);
+            }
+            levelEndedI++;
+            if(levelEndedI >= 120)
+            {
+                getGameScene().removeUINode(loading);
+                loading = null;
+                levelNum.set(levelNum.get() + 1);
+                getGameWorld().reset();
+                initLevel();
+                initPhysics();
+                initUI();
+                levelEndedI = 0;
+            }
+        }
+
         if(gameState == GameState.OVER)
             gameOver();
+    }
+
+    private int pellets;
+    public void decrementPellets() {pellets--;}
+    private int powerPellets;
+    public void decrementPowerPellets() {powerPellets--;}
+    public void checkLevelAdvance()
+    {
+        if(pellets + powerPellets == 0)
+        {
+            levelEnded = true;
+        }
     }
 
     public void gameOver()
@@ -320,6 +428,15 @@ public class PacmanApp extends GameApplication
         gameOver.setTranslateX(getWidth() / 2 - gameOver.getText().length() * 24);
 
         getGameScene().addUINode(gameOver);
+    }
+
+
+    private void devLevelClear()
+    {
+        pellets = 0;
+        powerPellets = 0;
+
+        checkLevelAdvance();
     }
 
     public AStarGridStorage getGridStorage()

@@ -1,7 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9e23d3c-4ecc-4041-bbd5-5e455b033f4d" name="Default" comment="" />
+    <list default="true" id="b9e23d3c-4ecc-4041-bbd5-5e455b033f4d" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/component/EnergizedComponent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PointBoostSpawnControl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PopUpControl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/SetPopUpControl.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 21-21-39-284.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 21-34-15-409.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-18-14-657.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-19-16-147.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-20-20-246.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-24-58-181.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-35-10-242.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-06 Jul 2017 22-39-18-972.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-07 Feb 2017 21-53-55-540.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-07 Feb 2017 21-54-15-780.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-25-40-693.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-26-12-548.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-26-37-367.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-27-41-102.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-08 Jul 2017 23-28-57-551.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-20 Feb 2017 16-37-49-851.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/FXGL-20 Feb 2017 16-40-59-393.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@21.21.41-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@21.34.16-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@22.20.21-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@22.24.59-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@22.35.11-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-06-Jul-2017@22.39.20-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-07-Feb-2017@21.53.56-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-07-Feb-2017@21.54.16-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.25.41-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.26.13-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.26.38-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.27.42-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-08-Jul-2017@23.28.58-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-20-Feb-2017@16.37.53-1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/logs/Game-20-Feb-2017@16.41.00-1.log" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/SpawnPointComponent.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/component/SpawnPointComponent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/assets/textures/cherry.png" afterPath="$PROJECT_DIR$/out/production/Pacman/assets/textures/cherry.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory$1.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory$2.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/EntityFactory.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$1.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$2.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$3.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$4.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$5.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanApp.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanUIController.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/PacmanUIController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerGhostHandler.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerGhostHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerPelletHandler.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerPelletHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/PlayerControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/PlayerControl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/BlinkyControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/BlinkyControl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/ClydeControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/ClydeControl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/GhostControl$1.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/GhostControl$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/GhostControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/GhostControl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/InkyControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/InkyControl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/PinkyControl.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/control/ai/PinkyControl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/type/EntityType.class" afterPath="$PROJECT_DIR$/out/production/Pacman/com/gamedesign/pacman/type/EntityType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/textures/cherry.png" afterPath="$PROJECT_DIR$/src/assets/textures/cherry.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/Game.log" afterPath="$PROJECT_DIR$/logs/Game.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/assets/text/levels/level.txt" afterPath="$PROJECT_DIR$/out/production/Pacman/assets/text/levels/level.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Pacman/assets/ui/pacman_ui.fxml" afterPath="$PROJECT_DIR$/out/production/Pacman/assets/ui/pacman_ui.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/text/levels/level.txt" afterPath="$PROJECT_DIR$/src/assets/text/levels/level.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml" afterPath="$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java" afterPath="$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java" />
+    </list>
     <ignored path="Pacman.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,11 +98,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="PacmanApp.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PacmanApp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="269" column="27" lean-forward="false" selection-start-line="269" selection-start-column="27" selection-end-line="269" selection-end-column="27" />
+            <state relative-caret-position="221">
+              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+              <folding>
+                <element signature="e#6331#6332#0" expanded="true" />
+                <element signature="e#6374#6375#0" expanded="true" />
+                <element signature="e#6442#6443#0" expanded="true" />
+                <element signature="e#6482#6483#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PacmanUIController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="37" column="39" lean-forward="false" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pacman_ui.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -34,8 +139,8 @@
       <file leaf-file-name="PlayerPowerPelletHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+            <state relative-caret-position="408">
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,32 +148,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerPelletHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java">
+      <file leaf-file-name="PointBoostSpawnControl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PointBoostSpawnControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntityType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="69" lean-forward="false" selection-start-line="4" selection-start-column="69" selection-end-line="4" selection-end-column="69" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="level.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/assets/text/levels/level.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-              <folding />
+            <state relative-caret-position="256">
+              <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -76,19 +163,11 @@
       <file leaf-file-name="GhostControl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="95" column="112" lean-forward="false" selection-start-line="95" selection-start-column="112" selection-end-line="95" selection-end-column="112" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntityFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1753">
-              <caret line="156" column="76" lean-forward="false" selection-start-line="156" selection-start-column="76" selection-end-line="156" selection-end-column="76" />
-              <folding />
+            <state relative-caret-position="68">
+              <caret line="93" column="72" lean-forward="false" selection-start-line="93" selection-start-column="72" selection-end-line="93" selection-end-column="72" />
+              <folding>
+                <marker date="1499627970605" expanded="false" signature="50:292" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,28 +175,45 @@
       <file leaf-file-name="PlayerControl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="391" column="4" lean-forward="false" selection-start-line="391" selection-start-column="4" selection-end-line="396" selection-end-column="5" />
+            <state relative-caret-position="-3807">
+              <caret line="138" column="16" lean-forward="false" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+              <folding>
+                <marker date="1499629306796" expanded="false" signature="9428:9443" ph=" { " />
+                <marker date="1499629306796" expanded="false" signature="9456:9462" ph=" }" />
+                <marker date="1499629306796" expanded="false" signature="9502:9517" ph=" { " />
+                <marker date="1499629306796" expanded="false" signature="9536:9542" ph=" }" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EntityFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="392">
+              <caret line="232" column="5" lean-forward="true" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InkyControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/InkyControl.java">
+      <file leaf-file-name="SetPopUpControl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/SetPopUpControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1512">
-              <caret line="134" column="59" lean-forward="false" selection-start-line="134" selection-start-column="59" selection-end-line="134" selection-end-column="59" />
-              <folding />
+            <state relative-caret-position="646">
+              <caret line="44" column="5" lean-forward="false" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerGhostHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java">
+      <file leaf-file-name="PopUpControl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PopUpControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-135">
-              <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+            <state relative-caret-position="290">
+              <caret line="58" column="41" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -150,6 +246,8 @@
       <find>homeCoordinates[1]</find>
       <find>view</find>
       <find>View</find>
+      <find>level</find>
+      <find>System.out.println</find>
     </findStrings>
     <replaceStrings>
       <replace>.</replace>
@@ -163,6 +261,7 @@
       <replace>aheadGrid</replace>
       <replace>storageRow</replace>
       <replace>storageCol</replace>
+      <replace>//System.out.println</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -186,25 +285,31 @@
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/GameState.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPortalHandler.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/AStarGridStorage.java" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/MoveDirection.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/MoveMode.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/SpawnPointComponent.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/BlinkyControl.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/PinkyControl.java" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java" />
-        <option value="$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/Config.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/InkyControl.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/ClydeControl.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/component/SpawnPointComponent.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/component/EnergizedComponent.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PopUpControl.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PointBoostSpawnControl.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java" />
         <option value="$PROJECT_DIR$/src/assets/text/levels/level.txt" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java" />
-        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/SetPopUpControl.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java" />
+        <option value="$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml" />
         <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java" />
+        <option value="$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java" />
       </list>
     </option>
   </component>
@@ -232,8 +337,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -352,6 +455,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="component" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pacman" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pacman" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pacman" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="collision" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -395,10 +520,6 @@
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="textures" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -422,26 +543,49 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pacman" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pacman" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fxgl-0.2.9-uber.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="E:/Orbit" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="SearchEverywhereHistoryKey" value="toString&#9;PSI&#9;JAVA://com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Computer Science\Game Design\3rd\Pacman\lib" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\lukel\Documents\FLASHDRIVE BACKUP\Pacman2.8.17\Pacman\src\assets\text\levels" />
       <recent name="C:\Users\1072524\Downloads\Pacman2.8.17\Pacman\src\assets\textures" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.gamedesign.pacman.control" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Computer Science\Game Design\3rd\Pacman\lib" />
     </key>
   </component>
   <component name="RunManager" selected="Application.PacmanApp">
@@ -761,7 +905,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -772,13 +916,14 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.057239056" sideWeight="0.50703126" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33261105" sideWeight="0.49296874" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33261105" sideWeight="0.49296874" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23027718" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23560767" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -790,7 +935,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -823,72 +967,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="20" column="58" lean-forward="false" selection-start-line="20" selection-start-column="58" selection-end-line="20" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="4" column="44" lean-forward="false" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/MoveDirection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="15" column="12" lean-forward="false" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="4" column="32" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/Config.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="8" column="50" lean-forward="false" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -896,7 +978,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#6331#6332#0" expanded="true" />
+            <element signature="e#6374#6375#0" expanded="true" />
+            <element signature="e#6442#6443#0" expanded="true" />
+            <element signature="e#6482#6483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -919,7 +1006,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="6" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -994,14 +1080,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/SpawnPointComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1023,7 +1101,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
           <caret line="187" column="127" lean-forward="false" selection-start-line="187" selection-start-column="127" selection-end-line="187" selection-end-column="127" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1031,16 +1108,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
           <caret line="313" column="0" lean-forward="false" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="35" lean-forward="true" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1055,7 +1122,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="332">
           <caret line="299" column="32" lean-forward="true" selection-start-line="299" selection-start-column="32" selection-end-line="299" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1063,11 +1129,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2091">
           <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#5178#5179#0" expanded="false" />
-            <element signature="e#5210#5211#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1075,12 +1136,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1411">
           <caret line="95" column="4" lean-forward="false" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1458#1459#0" expanded="false" />
-            <element signature="e#1518#1519#0" expanded="false" />
-            <marker date="1499394296451" expanded="false" signature="2796:2811" ph="&lt;~&gt;" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1088,15 +1143,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3009">
           <caret line="188" column="126" lean-forward="false" selection-start-line="188" selection-start-column="126" selection-end-line="188" selection-end-column="126" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="22" column="9" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1104,7 +1150,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
           <caret line="50" column="66" lean-forward="false" selection-start-line="50" selection-start-column="48" selection-end-line="50" selection-end-column="66" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1112,6 +1157,63 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/InkyControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2618">
+          <caret line="175" column="44" lean-forward="false" selection-start-line="175" selection-start-column="44" selection-end-line="175" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="39" column="25" lean-forward="false" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/component/SpawnPointComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/textures/cherry.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/component/EnergizedComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#250#251#0" expanded="true" />
+            <element signature="e#285#286#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/text/levels/level.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="10" lean-forward="false" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/fxgl-0.2.9-uber.jar!/com/almasb/fxgl/entity/component/MainViewComponent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1938">
+          <caret line="45" column="31" lean-forward="false" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1119,84 +1221,139 @@
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/type/EntityType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="4" column="69" lean-forward="false" selection-start-line="4" selection-start-column="69" selection-end-line="4" selection-end-column="69" />
+          <caret line="4" column="77" lean-forward="false" selection-start-line="4" selection-start-column="77" selection-end-line="4" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/text/levels/level.txt">
+    <entry file="jar://$PROJECT_DIR$/lib/fxgl-0.2.9-uber.jar!/com/almasb/fxgl/entity/RenderLayer.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        <state relative-caret-position="221">
+          <caret line="23" column="20" lean-forward="false" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java">
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPointBoostHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1753">
-          <caret line="156" column="76" lean-forward="false" selection-start-line="156" selection-start-column="76" selection-end-line="156" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="391" column="4" lean-forward="false" selection-start-line="391" selection-start-column="4" selection-end-line="396" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/InkyControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1512">
-          <caret line="134" column="59" lean-forward="false" selection-start-line="134" selection-start-column="59" selection-end-line="134" selection-end-column="59" />
-          <folding />
+        <state relative-caret-position="357">
+          <caret line="23" column="91" lean-forward="true" selection-start-line="23" selection-start-column="91" selection-end-line="23" selection-end-column="91" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPelletHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="408">
+          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/ai/GhostControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="95" column="112" lean-forward="false" selection-start-line="95" selection-start-column="112" selection-end-line="95" selection-end-column="112" />
+        <state relative-caret-position="68">
+          <caret line="93" column="72" lean-forward="false" selection-start-line="93" selection-start-column="72" selection-end-line="93" selection-end-column="72" />
+          <folding>
+            <marker date="1499627970605" expanded="false" signature="50:292" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PopUpControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="58" column="41" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/SetPopUpControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="44" column="5" lean-forward="false" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/EntityFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="232" column="5" lean-forward="true" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerPowerPelletHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+        <state relative-caret-position="408">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/collision/PlayerGhostHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/assets/ui/pacman_ui.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-135">
-          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanUIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="37" column="39" lean-forward="false" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/PacmanApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="269" column="27" lean-forward="false" selection-start-line="269" selection-start-column="27" selection-end-line="269" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="221">
+          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="e#6331#6332#0" expanded="true" />
+            <element signature="e#6374#6375#0" expanded="true" />
+            <element signature="e#6442#6443#0" expanded="true" />
+            <element signature="e#6482#6483#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PlayerControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3807">
+          <caret line="138" column="16" lean-forward="false" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+          <folding>
+            <marker date="1499629306796" expanded="false" signature="9428:9443" ph=" { " />
+            <marker date="1499629306796" expanded="false" signature="9456:9462" ph=" }" />
+            <marker date="1499629306796" expanded="false" signature="9502:9517" ph=" { " />
+            <marker date="1499629306796" expanded="false" signature="9536:9542" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gamedesign/pacman/control/PointBoostSpawnControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

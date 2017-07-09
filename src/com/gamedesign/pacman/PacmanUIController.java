@@ -18,7 +18,7 @@ import static com.gamedesign.pacman.Config.*;
 public class PacmanUIController implements UIController, UpdateEventListener
 {
     @FXML
-    private Label title, score;
+    private Label title, score, levelNum;
 
     @FXML
     private Canvas canvas;
@@ -35,6 +35,8 @@ public class PacmanUIController implements UIController, UpdateEventListener
 
         score.setFont(new Font(24));
 
+        levelNum.setFont(new Font(24));
+
         graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.YELLOW);
     }
@@ -49,4 +51,6 @@ public class PacmanUIController implements UIController, UpdateEventListener
     {
         return score;
     }
+
+    public Label getLevelNum() { return levelNum;}
 }

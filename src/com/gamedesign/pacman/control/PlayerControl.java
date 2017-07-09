@@ -9,7 +9,7 @@ import com.almasb.fxgl.time.LocalTimer;
 import com.gamedesign.pacman.EntityFactory;
 import com.gamedesign.pacman.GameState;
 import com.gamedesign.pacman.PacmanApp;
-import com.gamedesign.pacman.SpawnPointComponent;
+import com.gamedesign.pacman.component.SpawnPointComponent;
 import com.gamedesign.pacman.control.ai.BlinkyControl;
 import com.gamedesign.pacman.control.ai.ClydeControl;
 import com.gamedesign.pacman.control.ai.InkyControl;
@@ -19,6 +19,7 @@ import com.gamedesign.pacman.type.GhostType;
 import com.gamedesign.pacman.type.GhostTypeComponent;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.HashMap;
@@ -58,6 +59,7 @@ public class PlayerControl extends AbstractControl
         aheadGrid = new int[MAP_SIZE_Y][MAP_SIZE_X];
 
         spawnPointComponent().setSpawn(gameEntity.getPosition());
+        speed = 1;
     }
 
     @Override
@@ -73,6 +75,8 @@ public class PlayerControl extends AbstractControl
                 i = 0;
                 gameEntity.getMainViewComponent().setView(new ImageView("assets/textures/" + PACMAN_TEXTURES[i]));
                 textureTimer.capture();
+                //gameEntity.getMainViewComponent().setShowBBoxColor(Color.RED);
+                //gameEntity.getMainViewComponent().turnOnDebugBBox(true);
             }
 
             if (blockGridInitialized && onTile())
@@ -87,16 +91,13 @@ public class PlayerControl extends AbstractControl
                 gameEntity.getMainViewComponent().setView(new ImageView("assets/textures/" + PACMAN_TEXTURES[i]));
                 handleTexture(); // make sure to update the rotation with the new view
                 textureTimer.capture();
+
+                //gameEntity.getMainViewComponent().setShowBBoxColor(Color.RED);
+                //gameEntity.getMainViewComponent().turnOnDebugBBox(true);
             }
 
             if (!getSide().isEmpty())
                 gameEntity.setPosition(getPortal(getSide()).getPosition().add(PACMAN_OFFSET));
-
-            if(energizedTimer != null && energizedTimer.elapsed(Duration.seconds(6)))
-            {
-                state = null;
-                energizedTimer = null;
-            }
         }
     }
 
@@ -134,7 +135,8 @@ public class PlayerControl extends AbstractControl
                 portalMap.put("Up", e);
             else if(e.getPositionComponent().getY() == (MAP_SIZE_Y - 1) * BLOCK_SIZE)
                 portalMap.put("Down", e);
-            else{System.out.println(e.getX() + "   " + e.getY());}
+            else{//System.out.println(e.getX() + "   " + e.getY());
+                }
         }
 
         switch (side)
@@ -229,6 +231,18 @@ public class PlayerControl extends AbstractControl
     Note: Compensation for v almost surely doesn't work right now. I can't really slow my computer down
     artificially to test it out, but I'm pretty sure I can say that there's no way it works.
      */
+    private double speed;
+
+    public double getSpeed()
+    {
+        return speed;
+    }
+
+    public void setSpeed(double speed)
+    {
+        this.speed = speed;
+    }
+
     private void move()
     {
         // if this is the first time moving after being stopped, save moveDirection to prevDirection
@@ -240,8 +254,8 @@ public class PlayerControl extends AbstractControl
         }
 
         // store the dx and dy of moveDirection for convenience
-        double dx = moveDirection.getDX();
-        double dy = moveDirection.getDY();
+        double dx = moveDirection.getDX() * speed;
+        double dy = moveDirection.getDY() * speed;
 
         // store the dx and dy of prevDirection for convenience
         double prevdx = prevDirection.getDX();
@@ -372,22 +386,6 @@ public class PlayerControl extends AbstractControl
 
     public int[][] getPlayerGrid(){ return playerGrid; }
     public int[][] getAheadGrid(){ return aheadGrid; }
-
-    public String getState()
-    {
-        return state;
-    }
-    public void setState(String state)
-    {
-        this.state = state;
-    }
-
-    public void energize()
-    {
-        state = "Energized";
-        energizedTimer = FXGL.newLocalTimer();
-        energizedTimer.capture();
-    }
 
     public void respawn()
     {

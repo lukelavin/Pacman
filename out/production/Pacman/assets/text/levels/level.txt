@@ -9,7 +9,7 @@ BBBB.B       B.BBBB
 BBBB.B BBbBB B.BBBB
 T   .  BpicB  .   T
 BBBB.B BBBBB B.BBBB
-BBBB.B       B.BBBB
+BBBB.B   +   B.BBBB
 BBBB.B BBBBB B.BBBB
 B........B........B
 B.BB.BBB.B.BBB.BB.B

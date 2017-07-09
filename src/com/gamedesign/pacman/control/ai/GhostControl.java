@@ -1,6 +1,7 @@
 package com.gamedesign.pacman.control.ai;
 
 import com.almasb.ents.AbstractControl;
+import com.almasb.ents.Component;
 import com.almasb.ents.Entity;
 import com.almasb.fxgl.app.FXGL;
 import com.almasb.fxgl.entity.GameEntity;
@@ -8,7 +9,8 @@ import com.almasb.fxgl.time.LocalTimer;
 import com.gamedesign.pacman.Config;
 import com.gamedesign.pacman.GameState;
 import com.gamedesign.pacman.PacmanApp;
-import com.gamedesign.pacman.SpawnPointComponent;
+import com.gamedesign.pacman.component.EnergizedComponent;
+import com.gamedesign.pacman.component.SpawnPointComponent;
 import com.gamedesign.pacman.control.MoveDirection;
 import com.gamedesign.pacman.control.MoveMode;
 import com.gamedesign.pacman.control.PlayerControl;
@@ -20,7 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,7 +79,7 @@ public abstract class GhostControl extends AbstractControl
         framesSinceDirectionChange = 5;
 
         spawnPointComponent().setSpawn(ghost.getPosition());
-        System.out.println(spawnPointComponent().getValue().getX() / 40 + " | " + spawnPointComponent().getValue().getY() / 40);
+        //System.out.println(spawnPointComponent().getValue().getX() / 40 + " | " + spawnPointComponent().getValue().getY() / 40);
         moveDirection = MoveDirection.RIGHT;
 
         modeTimer = FXGL.newLocalTimer();
@@ -86,15 +87,44 @@ public abstract class GhostControl extends AbstractControl
         i = 0;
     }
 
+    private LocalTimer energizedTimer;
+    private int energizedDuration;
+    public void energize()
+    {
+        ghost.getComponentUnsafe(EnergizedComponent.class).setValue(true);
+
+        if(energizedTimer == null)
+        {
+            energizedTimer = FXGL.newLocalTimer();
+            energizedDuration = 6;
+            energizedTimer.capture();
+        }
+        else
+            energizedDuration += 6;
+    }
+
     @Override
     public void onUpdate(Entity entity, double v)
     {
         if(((PacmanApp) FXGL.getApp()).getGameState() == GameState.ACTIVE && gridsInitialized)
         {
-            if (playerControl().getState() == "Energized")
+            if (ghost.getComponentUnsafe(EnergizedComponent.class).getValue() == true)
             {
+                if(energizedTimer == null)
+                {
+                    energizedTimer = FXGL.newLocalTimer();
+                    energizedTimer.capture();
+                }
+
                 ghost.getMainViewComponent().setView(new ImageView(new Image("assets/textures/" + "scaredghost00.png")));
                 scatter();
+
+                if(energizedTimer.elapsed(Duration.seconds(energizedDuration)))
+                {
+                    ghost.getComponentUnsafe(EnergizedComponent.class).setValue(false);
+                    energizedTimer = null;
+                    energizedDuration = 0;
+                }
             }
             else
             {
@@ -114,32 +144,32 @@ public abstract class GhostControl extends AbstractControl
         periods of attacking Pacman and periods of "scattering" back to their home corners. This
         block of code uses the sequence defined in mode[] to determine the right mode for the ghosts.
          */
-                System.out.println(i);
-                System.out.println(modes[i]);
+                //System.out.println(i);
+                //System.out.println(modes[i]);
                 switch (modes[i])
                 {
                     case UNRELEASED:
-                        System.out.println("idle");
+                        //System.out.println("idle");
                         idle();
                         break;
 
                     case SCATTERLONG:
                         scatter();
-                        System.out.println("scatter");
+                        //System.out.println("scatter");
                         break;
 
                     case SCATTERSHORT:
-                        System.out.println("scatter");
+                        //System.out.println("scatter");
                         scatter();
                         break;
 
                     case ATTACKLONG:
-                        System.out.println("attack");
+                        //System.out.println("attack");
                         attack();
                         break;
 
                     case ATTACKFOREVER:
-                        System.out.println("attack");
+                        //System.out.println("attack");
                         attack();
                         break;
                 }
@@ -190,7 +220,8 @@ public abstract class GhostControl extends AbstractControl
                 portalMap.put("Up", e);
             else if(e.getPositionComponent().getY() == (MAP_SIZE_Y - 1) * BLOCK_SIZE)
                 portalMap.put("Down", e);
-            else{System.out.println(e.getX() + "   " + e.getY());}
+            else{//System.out.println(e.getX() + "   " + e.getY());
+                }
         }
 
         switch (side)
