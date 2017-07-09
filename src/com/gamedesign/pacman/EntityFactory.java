@@ -133,32 +133,39 @@ public class EntityFactory
                 .build();
     }
 
+    public static GameEntity newPowerPellet(double x, double y)
+    {
+        EntityView entityView = new EntityView(new Circle(BLOCK_SIZE / 4, Color.YELLOW));
+        entityView.setRenderLayer(new RenderLayer()
+        {
+            @Override
+            public String name()
+            {
+                return "BACKGROUND2";
+            }
+
+            @Override
+            public int index()
+            {
+                return 1001;
+            }
+        });
+
+        return Entities.builder()
+                .at(x * BLOCK_SIZE + BLOCK_SIZE / 4, y * BLOCK_SIZE + BLOCK_SIZE / 4)
+                .type(EntityType.POWERPELLET)
+                .bbox(new HitBox("BODY", BoundingShape.circle(BLOCK_SIZE / 4)))
+                .viewFromNode(entityView)
+                .with(new CollidableComponent(true))
+                .build();
+    }
+
     public static GameEntity newTeleporter(double x, double y)
     {
-//        Ellipse ellipse = new Ellipse(BLOCK_SIZE / 4, BLOCK_SIZE / 2);
-//        ellipse.setFill(Color.ORANGE);
-//
-//        EntityView entityView = new EntityView(ellipse);
-//        entityView.setRenderLayer(new RenderLayer()
-//        {
-//            @Override
-//            public String name()
-//            {
-//                return "BACKGROUND2";
-//            }
-//
-//            @Override
-//            public int index()
-//            {
-//                return 1001;
-//            }
-//        });
-
         return Entities.builder()
                 .at(x * BLOCK_SIZE, y * BLOCK_SIZE)
                 .type(EntityType.TELEPORTER)
                 .bbox(new HitBox("BODY", BoundingShape.circle(BLOCK_SIZE / 2)))
-//                .viewFromNodeWithBBox(entityView)
                 .with(new CollidableComponent(true))
                 .build();
     }

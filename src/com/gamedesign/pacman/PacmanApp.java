@@ -15,6 +15,7 @@ import com.almasb.fxgl.settings.GameSettings;
 import com.almasb.fxgl.ui.UI;
 import com.gamedesign.pacman.collision.PlayerGhostHandler;
 import com.gamedesign.pacman.collision.PlayerPelletHandler;
+import com.gamedesign.pacman.collision.PlayerPowerPelletHandler;
 import com.gamedesign.pacman.control.PlayerControl;
 import com.gamedesign.pacman.control.ai.*;
 import com.gamedesign.pacman.type.EntityType;
@@ -140,6 +141,7 @@ public class PacmanApp extends GameApplication
         parser.addEntityProducer('P', EntityFactory::newPlayer);
         parser.addEntityProducer('B', EntityFactory::makeBlock);
         parser.addEntityProducer('.', EntityFactory::newPellet);
+        parser.addEntityProducer('o', EntityFactory::newPowerPellet);
         parser.addEntityProducer('T', EntityFactory::newTeleporter);
         parser.addEntityProducer('b', EntityFactory::newBlinky);
         parser.addEntityProducer('p', EntityFactory::newPinky);
@@ -147,7 +149,7 @@ public class PacmanApp extends GameApplication
         parser.addEntityProducer('c', EntityFactory::newClyde);
 
         Level level = parser.parse("levels/level.txt");
-
+        //Level level = parser.parse("levels/customLevel0.txt");
         getGameWorld().setLevel(level);
 
         blockGridInitialized = false;
@@ -211,6 +213,7 @@ public class PacmanApp extends GameApplication
     {
         getPhysicsWorld().addCollisionHandler(new PlayerPelletHandler(EntityType.PLAYER, EntityType.PELLET));
         getPhysicsWorld().addCollisionHandler(new PlayerGhostHandler(EntityType.PLAYER, EntityType.ENEMY));
+        getPhysicsWorld().addCollisionHandler(new PlayerPowerPelletHandler(EntityType.PLAYER, EntityType.POWERPELLET));
     }
 
     private ArrayList<Circle> lives;
@@ -249,6 +252,22 @@ public class PacmanApp extends GameApplication
             lives.get(i).setTranslateY(BLOCK_SIZE * MAP_SIZE_Y - 20);
             getGameScene().addUINode(lives.get(i));
         }
+    }
+
+    private int ghostMultiplier;
+    public int getGhostMultiplier()
+    {
+        return ghostMultiplier;
+    }
+    public void setGhostMultiplier(int ghostMultiplier)
+    {
+        this.ghostMultiplier = ghostMultiplier;
+    }
+
+    public void energizePlayer()
+    {
+        playerControl().energize();
+        ghostMultiplier = 0;
     }
 
     public void loseLife()

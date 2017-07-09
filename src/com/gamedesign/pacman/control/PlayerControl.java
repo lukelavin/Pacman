@@ -34,6 +34,8 @@ public class PlayerControl extends AbstractControl
     private MoveDirection moveDirection, prevDirection;
     private LocalTimer textureTimer;
     private int i;
+    private String state;
+    private LocalTimer energizedTimer;
 
     private int[][] playerGrid, aheadGrid;
 
@@ -89,6 +91,12 @@ public class PlayerControl extends AbstractControl
 
             if (!getSide().isEmpty())
                 gameEntity.setPosition(getPortal(getSide()).getPosition().add(PACMAN_OFFSET));
+
+            if(energizedTimer != null && energizedTimer.elapsed(Duration.seconds(6)))
+            {
+                state = null;
+                energizedTimer = null;
+            }
         }
     }
 
@@ -364,6 +372,22 @@ public class PlayerControl extends AbstractControl
 
     public int[][] getPlayerGrid(){ return playerGrid; }
     public int[][] getAheadGrid(){ return aheadGrid; }
+
+    public String getState()
+    {
+        return state;
+    }
+    public void setState(String state)
+    {
+        this.state = state;
+    }
+
+    public void energize()
+    {
+        state = "Energized";
+        energizedTimer = FXGL.newLocalTimer();
+        energizedTimer.capture();
+    }
 
     public void respawn()
     {

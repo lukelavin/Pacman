@@ -1,6 +1,6 @@
 BBBTBBBBBBBBBBBBBBB
 B........B........B
-B.BB.BBB.B.BBB.BB.B
+BoBB.BBB.B.BBB.BBoB
 B.................B
 B.BB.B.BBBBB.B.BB.B
 B....B...B...B....B
@@ -16,6 +16,6 @@ B.BB.BBB.B.BBB.BB.B
 B..B.....P.....B..B
 BB.B.B.BBBBB.B.B.BB
 B....B...B...B....B
-B.BBBBBB.B.BBBBBB.B
+BoBBBBBB.B.BBBBBBoB
 B.................B
 BBBBBBBBBBBBBBBTBBB

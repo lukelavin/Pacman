@@ -91,57 +91,66 @@ public abstract class GhostControl extends AbstractControl
     {
         if(((PacmanApp) FXGL.getApp()).getGameState() == GameState.ACTIVE && gridsInitialized)
         {
-            this.v = v;
-            if(textureTimer.elapsed(Duration.millis(75)) && moveDirection != null)
+            if (playerControl().getState() == "Energized")
             {
-                updateTexture();
-                textureTimer.capture();
-                texturei = (texturei + 1) % textures.length;
+                ghost.getMainViewComponent().setView(new ImageView(new Image("assets/textures/" + "scaredghost00.png")));
+                scatter();
             }
+            else
+            {
+                this.v = v;
+                if (textureTimer.elapsed(Duration.millis(75)) && moveDirection != null)
+                {
+                    updateTexture();
+                    textureTimer.capture();
+                    texturei = (texturei + 1) % textures.length;
+                }
 
-            if(!getSide().isEmpty())
-                ghost.setPosition(getPortal(getSide()).getPosition().add(PACMAN_OFFSET));
+                if (!getSide().isEmpty())
+                    ghost.setPosition(getPortal(getSide()).getPosition().add(PACMAN_OFFSET));
 
         /*
         Ghosts in Pacman do not, in fact, chase Pacman the entire time. Ghosts alternate between
         periods of attacking Pacman and periods of "scattering" back to their home corners. This
         block of code uses the sequence defined in mode[] to determine the right mode for the ghosts.
          */
-            System.out.println(i);
-            System.out.println(modes[i]);
-            switch (modes[i])
-            {
-                case UNRELEASED:
-                    System.out.println("idle");
-                    idle();
-                    break;
+                System.out.println(i);
+                System.out.println(modes[i]);
+                switch (modes[i])
+                {
+                    case UNRELEASED:
+                        System.out.println("idle");
+                        idle();
+                        break;
 
-                case SCATTERLONG:
-                    scatter();
-                    System.out.println("scatter");
-                    break;
+                    case SCATTERLONG:
+                        scatter();
+                        System.out.println("scatter");
+                        break;
 
-                case SCATTERSHORT:
-                    System.out.println("scatter");
-                    scatter();
-                    break;
+                    case SCATTERSHORT:
+                        System.out.println("scatter");
+                        scatter();
+                        break;
 
-                case ATTACKLONG:
-                    System.out.println("attack");
-                    attack();
-                    break;
+                    case ATTACKLONG:
+                        System.out.println("attack");
+                        attack();
+                        break;
 
-                case ATTACKFOREVER:
-                    System.out.println("attack");
-                    attack();
-                    break;
-            }
+                    case ATTACKFOREVER:
+                        System.out.println("attack");
+                        attack();
+                        break;
+                }
 
-            if(modeTimer.elapsed(Duration.millis(modes[i].getDuration())))
-            {
-                if(i < modes.length - 1) {
-                    i++;
-                    modeTimer.capture();
+                if (modeTimer.elapsed(Duration.millis(modes[i].getDuration())))
+                {
+                    if (i < modes.length - 1)
+                    {
+                        i++;
+                        modeTimer.capture();
+                    }
                 }
             }
         }

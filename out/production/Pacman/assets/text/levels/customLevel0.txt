@@ -1,0 +1,21 @@
+BBBBBBBBBBBBBBBBBBB
+BBBBBBB           B
+BB...BB B B  B BB B
+B..B..B B B BB    B
+B.BBB.B B B BBBB  B
+B..B..B B B       B
+BB...BB B B BB  . B
+BB.B.BB   B B .B  B
+BB.B...      .  . B
+B..B.B.BBpBBB  B  B
+B.BB...BbciBB .   B
+B......BBBBB   B .B
+B .      P  B .B  B
+B      BBBBBB.B   B
+B .    ..B. .  B .B
+B .  . B.BBB pB  .B
+B     BB B p   .  B
+B   B  .  .  .    B
+B . B .    b b b  B
+B .    .          B
+BBBBBBBBBBBBBBBBBBB
